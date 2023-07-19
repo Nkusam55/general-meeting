@@ -5,8 +5,6 @@ import javax.validation.constraints.NotEmpty;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.generalbody.entity.ZoneList;
-
 /**
  * @author narendra kusam
  */
@@ -33,8 +31,10 @@ public class UserDto
   	
     @NotEmpty(message = "Mobile Number should not be empty")
   	private String mobile;
+    
+    private String appointmentId;
   	
-	private ZoneList zoneDetails;
+	private int zoneId;
     
   	private String divisionName;
   	
@@ -51,7 +51,15 @@ public class UserDto
   	private String aadharNumber;
   	
   	private MultipartFile aadharFile;
+  	
+  	private String name;
 
+  	private String zoneName;
+  	
+    private boolean status;
+    
+    private String amount;
+  	
 	public Long getId() {
 		return id;
 	}
@@ -156,12 +164,12 @@ public class UserDto
 		this.aadharFile = aadharFile;
 	}
 
-	public ZoneList getZoneDetails() {
-		return zoneDetails;
+	public int getZoneId() {
+		return zoneId;
 	}
 
-	public void setZoneDetails(ZoneList zoneDetails) {
-		this.zoneDetails = zoneDetails;
+	public void setZoneId(int zoneId) {
+		this.zoneId = zoneId;
 	}
 
 	public String getMembershipType() {
@@ -178,6 +186,46 @@ public class UserDto
 
 	public void setMembershipNumber(String membershipNumber) {
 		this.membershipNumber = membershipNumber;
+	}
+
+	public String getAppointmentId() {
+		return appointmentId;
+	}
+
+	public void setAppointmentId(String appointmentId) {
+		this.appointmentId = appointmentId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getZoneName() {
+		return zoneName;
+	}
+
+	public void setZoneName(String zoneName) {
+		this.zoneName = zoneName;
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	public String getAmount() {
+		return amount;
+	}
+
+	public void setAmount(String amount) {
+		this.amount = amount;
 	}
 	
 }
