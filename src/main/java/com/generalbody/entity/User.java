@@ -54,8 +54,8 @@ public class User
 	@Column(name = "agency_name", nullable = false)
 	private String agencyName;
 	
-	@Column(name = "pattern_membership", nullable = false)
-	private boolean patternMembership;
+	@Column(name = "membership_pattern", nullable = false)
+	private boolean membershipPattern;
 	
 	@Column(name = "membership_type", nullable = false)
 	private String membershipType;
@@ -72,6 +72,9 @@ public class User
 	
     @Column(nullable=false)
     private String password;
+    
+    @Column(name = "appointment_id", nullable = false)
+	private String appointmentId;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinTable(
@@ -79,6 +82,9 @@ public class User
             joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
             inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
     private List<Role> roles = new ArrayList<>();
+    
+    @Column(name = "status", nullable = false)
+    private boolean status;
 
 	public Long getId() {
 		return id;
@@ -152,12 +158,12 @@ public class User
 		this.agencyName = agencyName;
 	}
 
-	public boolean isPatternMembership() {
-		return patternMembership;
+	public boolean isMembershipPattern() {
+		return membershipPattern;
 	}
 
-	public void setPatternMembership(boolean patternMembership) {
-		this.patternMembership = patternMembership;
+	public void setMembershipPattern(boolean membershipPattern) {
+		this.membershipPattern = membershipPattern;
 	}
 
 	public String getMembershipType() {
@@ -211,5 +217,21 @@ public class User
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-    
+
+	public String getAppointmentId() {
+		return appointmentId;
+	}
+
+	public void setAppointmentId(String appointmentId) {
+		this.appointmentId = appointmentId;
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+	
 }
