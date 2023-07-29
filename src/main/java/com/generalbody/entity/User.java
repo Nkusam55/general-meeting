@@ -51,8 +51,8 @@ public class User
 	@Column(name = "branch_name", nullable = false)
 	private String branch;
 	
-	@Column(name = "agency_name", nullable = false)
-	private String agencyName;
+	@Column(name = "agency_code", nullable = false)
+	private String agencyCode;
 	
 	@Column(name = "membership_pattern", nullable = false)
 	private boolean membershipPattern;
@@ -63,12 +63,12 @@ public class User
 	@Column(name = "membership_number", nullable = false)
 	private String membershipNumber;
 	
-	@Column(name = "aadhar_number", nullable = false)
+	@Column(name = "aadhar_number")
 	private String aadharNumber;
 	
 	@Lob
-    @Column(name = "aadhar_doc")
-	private byte[] aadharDocument;
+    @Column(name = "photo")
+	private byte[] photo;
 	
     @Column(nullable=false)
     private String password;
@@ -150,12 +150,12 @@ public class User
 		this.branch = branch;
 	}
 
-	public String getAgencyName() {
-		return agencyName;
+	public String getAgencyCode() {
+		return agencyCode;
 	}
 
-	public void setAgencyName(String agencyName) {
-		this.agencyName = agencyName;
+	public void setAgencyCode(String agencyName) {
+		this.agencyCode = agencyCode;
 	}
 
 	public boolean isMembershipPattern() {
@@ -190,12 +190,12 @@ public class User
 		this.aadharNumber = aadharNumber;
 	}
 
-	public byte[] getAadharDocument() {
-		return aadharDocument;
+	public byte[] getPhoto() {
+		return photo;
 	}
 
-	public void setAadharDocument(byte[] aadharDocument) {
-		this.aadharDocument = aadharDocument;
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
 	}
 
 	public String getPassword() {

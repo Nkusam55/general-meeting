@@ -9,10 +9,11 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.general.body</groupId>
-	<artifactId>general-body</artifactId>
+	<artifactId>general-meeting</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>general-body</name>
+	<name>general-meeting</name>
 	<description>Demo project for General Body</description>
+	<packaging>war</packaging>  
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -57,7 +58,6 @@
 		<dependency>
 		    <groupId>javax.mail</groupId>
 		    <artifactId>javax.mail-api</artifactId>
-		    <version>1.6.2</version>
 		</dependency>
 		
 		<dependency>
@@ -76,11 +76,16 @@
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 		</dependency>
+		
+		<dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
 
 	</dependencies>
 
 	<build>
-		<finalName>generalbody</finalName>  
+		<finalName>generalmeeting</finalName>  
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

@@ -40,7 +40,7 @@ public class UserDto
   	
   	private String branch;
   	
-  	private String agencyName;
+  	private String agencyCode;
   	
   	private boolean membershipPattern;
   	
@@ -50,7 +50,7 @@ public class UserDto
   	
   	private String aadharNumber;
   	
-  	private MultipartFile aadharFile;
+  	private MultipartFile photo;
   	
   	private String name;
 
@@ -132,12 +132,12 @@ public class UserDto
 		this.branch = branch;
 	}
 
-	public String getAgencyName() {
-		return agencyName;
+	public String getAgencyCode() {
+		return agencyCode;
 	}
 
-	public void setAgencyName(String agencyName) {
-		this.agencyName = agencyName;
+	public void setAgencyCode(String agencyCode) {
+		this.agencyCode = agencyCode;
 	}
 
 	public boolean isMembershipPattern() {
@@ -156,12 +156,12 @@ public class UserDto
 		this.aadharNumber = aadharNumber;
 	}
 
-	public MultipartFile getAadharFile() {
-		return aadharFile;
+	public MultipartFile getPhoto() {
+		return photo;
 	}
 
-	public void setAadharFile(MultipartFile aadharFile) {
-		this.aadharFile = aadharFile;
+	public void setPhoto(MultipartFile photo) {
+		this.photo = photo;
 	}
 
 	public int getZoneId() {
