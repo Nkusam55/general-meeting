@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -57,7 +59,7 @@ public class UserServiceImpl implements UserService {
 		user.setZoneId(Long.valueOf(userDto.getZoneId()));
 		user.setDivisionName(userDto.getDivisionName());
 		user.setBranch(userDto.getBranch());
-		user.setAgencyName(userDto.getAgencyName());
+		user.setAgencyCode(userDto.getAgencyCode());
 		user.setMembershipPattern(userDto.isMembershipPattern());
 		user.setMembershipType(userDto.getMembershipType());
 		user.setMembershipNumber(userDto.getMembershipNumber());
@@ -67,7 +69,7 @@ public class UserServiceImpl implements UserService {
 		user.setStatus(false);
 		
 		try {
-			user.setAadharDocument(userDto.getAadharFile().getBytes());
+			user.setPhoto(userDto.getPhoto().getBytes());
 		} catch (IOException e) {
 			throw new Exception("Aadhar uploading failed");
 		}
@@ -94,7 +96,6 @@ public class UserServiceImpl implements UserService {
 		}
 		try {
 			userRepository.save(user);
-			//mailService.sendMail(user);
 		}catch (Exception e) {
 			throw new Exception(e);
 		}
@@ -107,8 +108,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserDto> findAllUsers() {
-		List<User> users = userRepository.findUserByStatus(true);
+	public List<UserDto> findAllUsers(boolean status) {
+		List<User> users = userRepository.findUserByStatus(status);
 		return users.stream().map((user) -> convertEntityToDto(user))
 				.collect(Collectors.toList());
 	}
@@ -122,7 +123,7 @@ public class UserServiceImpl implements UserService {
         userDto.setDivisionName(user.getDivisionName());
         userDto.setBranch(user.getBranch());
         userDto.setMembershipNumber(user.getMembershipNumber());
-        userDto.setAgencyName(user.getAgencyName());
+        userDto.setAgencyCode(user.getAgencyCode());
         userDto.setAppointmentId(user.getAppointmentId());
 		ZoneList zone = zoneListRepository.findById(user.getZoneId()).get();
 	    userDto.setZoneName(zone.getName());	
@@ -152,4 +153,15 @@ public class UserServiceImpl implements UserService {
 		String uniqueString = name + "_" + randomNumber;
 		return uniqueString;
 	}
+
+	@Override
+	public int activateUserStatus(boolean status, long userId) {
+		return userRepository.activateUserStatus(status, userId);
+	}
+	
+	@Override
+	public String sendMailAfterPayment(User user) throws MessagingException {
+		return mailService.sendMail(user);
+	}
+	
 }

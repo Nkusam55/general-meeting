@@ -30,7 +30,7 @@ public class EmailService {
         String process = templateEngine.process("emails/registerEmail", context);
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
-        helper.setSubject("Register Successfully - " + user.getName());
+        helper.setSubject("LIAFI General Council Meeting Registration Confirmation");
         helper.setText(process, true);
         helper.setTo(user.getEmail());
         javaMailSender.send(mimeMessage);

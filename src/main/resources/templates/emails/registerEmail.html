@@ -1,17 +1,100 @@
-<!doctype html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Email</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIAFI General Council Meeting Registration Confirmation</title>
+    <!-- Add your CSS styles here or include an external CSS file -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            background-color: #007bff;
+            color: #ffffff;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .content {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .event-details {
+            margin-top: 30px;
+        }
+
+        .event-details h2 {
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+
+        .event-details ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 10px;
+        }
+
+        .event-details li {
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #888;
+            font-size: 14px;
+        }
+
+        .footer p {
+            margin-bottom: 10px;
+        }
+
+        .footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-<div>Welcome <b th:text="${user.name}"></b></div>
-
-<div> Your username is <b th:text="${user.name}"></b></div>
-<div> Your appointment id is <b th:text="${user.appointmentId}"></b></div>
+    <div class="header">
+        <h1>LIAFI General Council Meeting</h1>
+    </div>
+    <div class="content">
+        <p>Dear <span th:text="${user.name}" />,</p>
+        <p>We are delighted to inform you that your registration for the LIAFI General Council Meeting, to be held at Vijayawada on the 17th, 18th, and 19th of September 2023, has been successfully completed.</p>
+        
+        <div class="event-details">
+            <h2>Event Details:</h2>
+            <ul>
+                <li><strong>Name:</strong> LIAFI General Council Meeting</li>
+                <li><strong>Dates:</strong> 17th, 18th, and 19th September 2023</li>
+                <li><strong>Location:</strong> [Venue Name], Vijayawada</li>
+            </ul>
+        </div>
+    </div>
+    <div>
+		Your Identification Id : <b th:text="${user.appointmentId}"></b>
+	</div>
+    <div class="placeholder-footer">
+      <div class="footer">
+        <p>Thank you once again for your participation, and we eagerly anticipate meeting you at the event.</p>
+        <p>Best regards,<br>LIAFI General Council Meeting Organizing Committee</p>
+      </div>
+    </div>
 </body>
 </html>

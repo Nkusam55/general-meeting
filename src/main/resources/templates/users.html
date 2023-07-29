@@ -1,25 +1,22 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
->
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>General Body</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-          crossorigin="anonymous">
-          
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>COUNCIL MEETING</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <script type="text/javascript" th:src="@{/js/jquery-3.7.0.min.js}"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js"></script>
+	<link th:href="@{/css/datatables.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/bootstrap-toggle.min.css}" rel="stylesheet" />
+    <script type="text/javascript" th:src="@{/js/bootstrap-toggle.min.js}"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">General Body</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <a class="navbar-brand" href="#">COUNCIL MEETING</a>
+        <label>Transaction: </label>
+        <input type="checkbox" id="transactionStatus" data-toggle="toggle" data-on="Success" data-off="Failed">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
@@ -32,42 +29,37 @@
         </div>
     </div>
 </nav>
-<div class="container">
-    <div class="row">
-        <h1> Registered Users </h1>
-    </div>
-    <table class="table table-striped table-bordered table-hover"  id="usersTable">
-        <thead class="table-dark">
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Mobile</th>
-                <th>Membership Number</th>
-                <th>Aadhar Number</th>
-                <th>Zone</th>
-                <th>Division</th>
-                <th>Branch</th>
-                <th>Agency Name</th>
-                <th>Appointment Number</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="user: ${users}">
-                <td th:text="${user.name}"></td>
-                <td th:text="${user.email}"></td>
-                <td th:text="${user.mobile}"></td>
-                <td th:text="${user.membershipNumber}"></td>
-                <td th:text="${user.aadharNumber}"></td>
-                <td th:text="${user.zoneName}"></td>
-                <td th:text="${user.divisionName}"></td>
-                <td th:text="${user.branch}"></td>
-                <td th:text="${user.agencyName}"></td>
-                <td th:text="${user.appointmentId}"></td>
-                
-            </tr>
-        </tbody>
-    </table>
-</div>
+ <div class="container mt-5">
+  <h1>Registered Users</h1>
+  <table class="table table-bordered table-striped" id="usersTable">
+    <thead class="thead-dark">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Membership Parton Number</th>
+        <th>Zone</th>
+        <th>Division</th>
+        <th>Branch</th>
+        <th>Agency Code</th>
+        <th>Appointment Number</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr th:each="user: ${users}">
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.mobile}"></td>
+        <td th:text="${user.membershipNumber}"></td>
+        <td th:text="${user.zoneName}"></td>
+        <td th:text="${user.divisionName}"></td>
+        <td th:text="${user.branch}"></td>
+        <td th:text="${user.agencyCode}"></td>
+        <td th:text="${user.appointmentId}"></td>
+     </tr>
+    </tbody>
+   </table>
+ </div>
 </body>
 
 <script>
