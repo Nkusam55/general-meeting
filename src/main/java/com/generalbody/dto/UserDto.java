@@ -1,9 +1,13 @@
 package com.generalbody.dto;
 
+import java.util.List;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.web.multipart.MultipartFile;
+
+import com.generalbody.entity.Relative;
 
 /**
  * @author narendra kusam
@@ -59,6 +63,14 @@ public class UserDto
     private boolean status;
     
     private String amount;
+    
+    private int clubTypeId;
+    
+    private String clubTypeName;
+    
+    private boolean acceptTerms;
+    
+    private List<Relative> relatives;
   	
 	public Long getId() {
 		return id;
@@ -226,6 +238,38 @@ public class UserDto
 
 	public void setAmount(String amount) {
 		this.amount = amount;
+	}
+
+	public int getClubTypeId() {
+		return clubTypeId;
+	}
+
+	public void setClubTypeId(int clubTypeId) {
+		this.clubTypeId = clubTypeId;
+	}
+
+	public String getClubTypeName() {
+		return clubTypeName;
+	}
+
+	public void setClubTypeName(String clubTypeName) {
+		this.clubTypeName = clubTypeName;
+	}
+
+	public boolean isAcceptTerms() {
+		return acceptTerms;
+	}
+
+	public void setAcceptTerms(boolean acceptTerms) {
+		this.acceptTerms = acceptTerms;
+	}
+
+	public List<Relative> getRelatives() {
+		return relatives;
+	}
+
+	public void setRelatives(List<Relative> relatives) {
+		this.relatives = relatives;
 	}
 	
 }

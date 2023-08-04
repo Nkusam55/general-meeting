@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.generalbody.dto.UserDto;
+import com.generalbody.entity.ClubTypeList;
+import com.generalbody.entity.Relative;
 import com.generalbody.entity.User;
 import com.generalbody.entity.ZoneList;
 import com.generalbody.service.UserService;
@@ -52,11 +54,8 @@ public class AuthController {
 	@Value("${rzp_key_secret}")
 	private String secretId;
 
-	@Value("${rzp_year_term_amount}")
-	private String yearTermAmount;
-
-	@Value("${rzp_life_term_amount}")
-	private String lifeTermAmount;
+	@Value("${rzp_reg_fee}")
+	private String regFee;
 
 	@Value("${rzp_currency}")
 	private String currencyType;
@@ -77,9 +76,15 @@ public class AuthController {
 	@GetMapping("/register")
 	public String showRegistrationForm(Model model) {
 		UserDto user = new UserDto();
+		List<Relative> tempList = new ArrayList<Relative>();
+		Relative tempRelative = new Relative();
+		tempList.add(tempRelative);
+		user.setRelatives(tempList);
 		model.addAttribute("user", user);
 		List<ZoneList> zoneList = userService.getZoneList();
+		List<ClubTypeList> clubTypeList = userService.getClubTypeList();
 		model.addAttribute("zoneList", zoneList);
+		model.addAttribute("clubTypeList", clubTypeList);
 		return "register";
 	}
 
@@ -112,8 +117,7 @@ public class AuthController {
 		User user = userService.findByEmail(false, mailId);
 		model.addAttribute("keyId", keyId);
 		model.addAttribute("currencyType", currencyType);
-		model.addAttribute("yearTermCurrency", yearTermAmount);
-		model.addAttribute("lifeTermCurrency", lifeTermAmount);
+		model.addAttribute("regFeeAmount", regFee);
 		model.addAttribute("companyName", companyName);
 		model.addAttribute("mail", user.getEmail());
 		model.addAttribute("contact", user.getMobile());
@@ -179,7 +183,6 @@ public class AuthController {
 			@PathVariable String mail,
 			RedirectAttributes redirectAttributes){
 
-		System.out.println(amount+ "***"+ mail+ "***"+ companyName +"***"+" Save all data, which on success we get!");
 		User user = userService.findByEmail(false, mail);
 		int updateId = userService.activateUserStatus(true, user.getId());
 		model.addAttribute("amount", amount);

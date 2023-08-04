@@ -1,15 +1,17 @@
 package com.generalbody.config;
 
+import java.util.Base64;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import com.generalbody.entity.User;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Service;
 
 @Service
 public class EmailService {
@@ -24,9 +26,10 @@ public class EmailService {
     }
 
     public String sendMail(User user) throws MessagingException {
+        String base64ImageData = Base64.getEncoder().encodeToString(user.getPhoto());
+        user.setImageData(base64ImageData);
         Context context = new Context();
         context.setVariable("user", user);
-
         String process = templateEngine.process("emails/registerEmail", context);
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
@@ -36,5 +39,5 @@ public class EmailService {
         javaMailSender.send(mimeMessage);
         return "Sent";
     }	
-	
+    
 }

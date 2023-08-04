@@ -15,43 +15,28 @@
 	
 	<input type="hidden"  id="keyId" th:value="${keyId}" />
 	<input type="hidden"  id="currencyType" th:value="${currencyType}" />
-    <input type="hidden"  id="yearTermCurrency" th:value="${yearTermCurrency}" />
-    <input type="hidden"  id="lifeTermCurrency" th:value="${lifeTermCurrency}" />
+    <input type="hidden"  id="regFeeAmount" th:value="${regFeeAmount}" />
     <input type="hidden"  id="companyName" th:value="${companyName}" />
     <input type="hidden"  id="mailId" th:value="${mailId}" />
 
     <div class="row">
-        <div class="col-sm-4 pb-5">
-            <div class="card">
-                <div class="card-body m-4">
-                    <h5 class="card-title">Yearly Term Plan </h5>
-                    <div class="mt-auto mb-4">
-					   <span  class="fw-bold fs-2" th:text="${yearTermCurrency}" th:remove="tag">title</span>₹
-                    </div>
-                    <ul class="list-unstyled">
-                        <li class="mb-3">
-                        </li>
-                    </ul>
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-primary" type="button" onclick="createOrderID('year')"> Pay </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+		 <h1>General Council Meeting Registration</h1>
+		 <br>
+		 <p>To attend the meeting, please complete the payment.</p>
 
         <div class="col-sm-4 pb-5">
             <div class="card">
                 <div class="card-body m-4">
-                    <h5 class="card-title">Life Term Plan</h5>
+                    <h5 class="card-title">Registration Amount</h5>
                     <div class="mt-auto mb-4">
-                        <span  class="fw-bold fs-2" th:text="${lifeTermCurrency}" th:remove="tag">title</span>₹
+                        <span  class="fw-bold fs-2" th:text="${regFeeAmount}" th:remove="tag">title</span>₹
                     </div>
                     <ul class="list-unstyled">
                         <li class="mb-3">
                         </li>
                     </ul>
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary" type="button" onclick="createOrderID('life')">Pay</button>
+                        <button class="btn btn-primary" type="button" onclick="createOrderID()">Pay</button>
                     </div>
                 </div>
             </div>
@@ -77,15 +62,10 @@
 		       return resp;
 	}
 	
-    function createOrderID(type) {
-        var amount = 0;
-        if(type=="life"){
-		  amount = $("#lifeTermCurrency").val(); 
-		}else{
-		  amount = $("#yearTermCurrency").val();  
-		}
+    function createOrderID() {
+        var amount  = $("#yearTermCurrency").val();  
 		totalAmount = amount*100;
-		var orderResponse = doGet("/createOrder", totalAmount, false);
+		var orderResponse = doGet("/generalbody/createOrder", totalAmount, false);
 	    if(orderResponse.statusCode == 200) {
            console.log("razorpayOrderId" + orderResponse.razorpayOrderId);
            openCheckout(amount, $("#mailId").val(), orderResponse.razorpayOrderId);
@@ -107,7 +87,7 @@ function openCheckout(amount, razorpayOrderId) {
         "name": "[[${companyName}]]",
         "image": "/lic.jpg",
         "order_id": razorpayOrderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-        "callback_url": "/paymentSuccess/"+amount+"/"+"[[${mail}]]/",
+        "callback_url": "/generalbody/paymentSuccess/"+amount+"/"+"[[${mail}]]/",
         "notes": {
             "description": "sample text",
             "company_name": "[[${companyName}]]",
