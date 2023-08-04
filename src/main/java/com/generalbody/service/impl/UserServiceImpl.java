@@ -1,12 +1,14 @@
 package com.generalbody.service.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
 import javax.mail.MessagingException;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,9 +16,12 @@ import org.springframework.stereotype.Service;
 
 import com.generalbody.config.EmailService;
 import com.generalbody.dto.UserDto;
+import com.generalbody.entity.ClubTypeList;
+import com.generalbody.entity.Relative;
 import com.generalbody.entity.Role;
 import com.generalbody.entity.User;
 import com.generalbody.entity.ZoneList;
+import com.generalbody.repository.ClubListRepository;
 import com.generalbody.repository.RoleRepository;
 import com.generalbody.repository.UserRepository;
 import com.generalbody.repository.ZoneListRepository;
@@ -35,21 +40,25 @@ public class UserServiceImpl implements UserService {
 	private RoleRepository roleRepository;
 	private ZoneListRepository zoneListRepository;
 	private PasswordEncoder passwordEncoder;
-
+	private ClubListRepository clubListRepository;
+	
 	@Autowired
 	EmailService mailService;
 
 	public UserServiceImpl(UserRepository userRepository,
 			RoleRepository roleRepository,
 			ZoneListRepository zoneListRepository,
+			ClubListRepository clubListRepository,
 			PasswordEncoder passwordEncoder) {
 		this.userRepository = userRepository;
 		this.roleRepository = roleRepository;
 		this.zoneListRepository = zoneListRepository;
+		this.clubListRepository = clubListRepository;
 		this.passwordEncoder = passwordEncoder;
 	}
 
 	@Override
+	@Transactional
 	public void saveUser(UserDto userDto) throws Exception {
 		User user = new User();
 		user.setName(userDto.getFirstName() + " " + userDto.getLastName());
@@ -64,10 +73,19 @@ public class UserServiceImpl implements UserService {
 		user.setMembershipType(userDto.getMembershipType());
 		user.setMembershipNumber(userDto.getMembershipNumber());
 		user.setAadharNumber(userDto.getAadharNumber());
+		user.setClubTypeId(Long.valueOf(userDto.getClubTypeId()));
+		user.setAcceptTerms(userDto.isAcceptTerms());
 		String appId = generateUniqueString(userDto.getFirstName());
 		user.setAppointmentId(appId);
 		user.setStatus(false);
-		
+		List<Relative> relatives = new ArrayList<>();
+        for (Relative relative : userDto.getRelatives()) {
+            relative.setUser(user);
+            relatives.add(relative);
+        }
+
+        user.setRelatives(relatives);
+
 		try {
 			user.setPhoto(userDto.getPhoto().getBytes());
 		} catch (IOException e) {
@@ -99,7 +117,7 @@ public class UserServiceImpl implements UserService {
 		}catch (Exception e) {
 			throw new Exception(e);
 		}
-
+		
 	}
 
 	@Override
@@ -127,7 +145,9 @@ public class UserServiceImpl implements UserService {
         userDto.setAppointmentId(user.getAppointmentId());
 		ZoneList zone = zoneListRepository.findById(user.getZoneId()).get();
 	    userDto.setZoneName(zone.getName());	
-		return userDto;
+	    ClubTypeList clubTypeList = clubListRepository.findById(user.getClubTypeId()).get();
+	    userDto.setClubTypeName(clubTypeList.getName());
+	    return userDto;
 	}
 
 	private Role checkRoleExist(String roleName) {
@@ -145,6 +165,17 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ZoneList getZoneName(long zoneId) {
 		return zoneListRepository.findById(zoneId).get();
+	}
+	
+	@Override
+	public List<ClubTypeList> getClubTypeList() {
+		List<ClubTypeList> clubTypeList = clubListRepository.findAll();
+		return clubTypeList;
+	}
+
+	@Override
+	public ClubTypeList getClubTypeName(long clubTypeId) {
+		return clubListRepository.findById(clubTypeId).get();
 	}
 	
 	public static String generateUniqueString(String name) {

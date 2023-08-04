@@ -5,6 +5,7 @@ import java.util.List;
 import javax.mail.MessagingException;
 
 import com.generalbody.dto.UserDto;
+import com.generalbody.entity.ClubTypeList;
 import com.generalbody.entity.User;
 import com.generalbody.entity.ZoneList;
 
@@ -13,7 +14,8 @@ import com.generalbody.entity.ZoneList;
  */
 
 public interface UserService {
-    void saveUser(UserDto userDto) throws Exception;
+   
+	void saveUser(UserDto userDto) throws Exception;
 
     User findByEmail(boolean status,String mailId);
 
@@ -26,4 +28,9 @@ public interface UserService {
 	int activateUserStatus(boolean status, long userId);
 
 	String sendMailAfterPayment(User user) throws MessagingException;
+
+	ClubTypeList getClubTypeName(long clubTypeId);
+	
+	List<ClubTypeList> getClubTypeList();
+
 }

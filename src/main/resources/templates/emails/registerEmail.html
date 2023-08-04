@@ -48,7 +48,7 @@
         .event-details li {
             margin-bottom: 10px;
         }
-
+        
         .footer {
             text-align: center;
             margin-top: 30px;
@@ -68,6 +68,23 @@
         .footer a:hover {
             text-decoration: underline;
         }
+        
+		.container {
+		    display: flex; /* Use flexbox layout */
+		}
+
+		.event-info {
+		    flex: 2; /* Distribute available space equally between divs */
+		    border: 1px solid #ccc; /* Add borders for visual separation */
+		    padding: 10px; /* Add padding for spacing within divs */
+		}
+		
+		.image-info {
+		    flex: 1; /* Distribute available space equally between divs */
+		    border: 1px solid #ccc; /* Add borders for visual separation */
+		    padding: 10px; /* Add padding for spacing within divs */
+		}
+        
     </style>
 </head>
 <body>
@@ -77,24 +94,29 @@
     <div class="content">
         <p>Dear <span th:text="${user.name}" />,</p>
         <p>We are delighted to inform you that your registration for the LIAFI General Council Meeting, to be held at Vijayawada on the 17th, 18th, and 19th of September 2023, has been successfully completed.</p>
-        
+        <p>Your Identification Id : <b th:text="${user.appointmentId}"></b></p>
         <div class="event-details">
-            <h2>Event Details:</h2>
-            <ul>
+           <h2>Event Details:</h2>
+          <div class="container">
+			 <div class="event-info">
+			    <ul>
                 <li><strong>Name:</strong> LIAFI General Council Meeting</li>
                 <li><strong>Dates:</strong> 17th, 18th, and 19th September 2023</li>
                 <li><strong>Location:</strong> [Venue Name], Vijayawada</li>
-            </ul>
+            </ul> 
+		   </div>
+		    <div class="image-info">
+				<p> <span th:text="${user.imageData}" />,</p>
+              <img src="data:image/jpeg;base64,${user.imageData}" alt="Image" width="200" height="200">
+           </div> 
+		  </div>
         </div>
-    </div>
-    <div>
-		Your Identification Id : <b th:text="${user.appointmentId}"></b>
-	</div>
-    <div class="placeholder-footer">
-      <div class="footer">
-        <p>Thank you once again for your participation, and we eagerly anticipate meeting you at the event.</p>
-        <p>Best regards,<br>LIAFI General Council Meeting Organizing Committee</p>
-      </div>
+        <div class="placeholder-footer">
+         <div class="footer">
+          <p>Thank you once again for your participation, and we eagerly anticipate meeting you at the event.</p>
+          <p>Best regards,<br>LIAFI General Council Meeting Organizing Committee</p>
+         </div>
+       </div>
     </div>
 </body>
 </html>

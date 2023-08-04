@@ -2,6 +2,7 @@ package com.generalbody.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,7 +15,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * @author narendra kusam
@@ -24,67 +27,78 @@ import javax.persistence.Table;
 @Table(name="users")
 public class User
 {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE)
+	private Long id;
 
-    @Column(nullable = false)
+	@Column(nullable = false)
 	private String name;
-	
-    @Column(nullable = false)
+
+	@Column(nullable = false)
 	private String address;
-	
-    @Column(name = "email", nullable = false, unique = true)
+
+	@Column(name = "email", nullable = false, unique = true)
 	private String email;
-	
+
 	@Column(nullable = false)
 	private String mobile;
 
 	@Column(name = "zone_id", nullable = false)
 	private Long zoneId;
-	
+
+	@Column(name = "club_type_id", nullable = false)
+	private Long clubTypeId;
+
 	@Column(name = "division_name", nullable = false)
 	private String divisionName;
-	
+
 	@Column(name = "branch_name", nullable = false)
 	private String branch;
-	
+
 	@Column(name = "agency_code", nullable = false)
 	private String agencyCode;
-	
+
 	@Column(name = "membership_pattern", nullable = false)
 	private boolean membershipPattern;
-	
+
 	@Column(name = "membership_type", nullable = false)
 	private String membershipType;
-	
+
 	@Column(name = "membership_number", nullable = false)
 	private String membershipNumber;
-	
+
 	@Column(name = "aadhar_number")
 	private String aadharNumber;
-	
+
 	@Lob
-    @Column(name = "photo")
+	@Column(name = "photo")
 	private byte[] photo;
-	
-    @Column(nullable=false)
-    private String password;
-    
-    @Column(name = "appointment_id", nullable = false)
+
+	@Column(nullable=false)
+	private String password;
+
+	@Column(name = "appointment_id", nullable = false)
 	private String appointmentId;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-    @JoinTable(
-            name="users_roles",
-            joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
-            inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
-    private List<Role> roles = new ArrayList<>();
-    
-    @Column(name = "status", nullable = false)
-    private boolean status;
+	@ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinTable(name="users_roles",
+			joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
+			inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
+	private List<Role> roles = new ArrayList<>();
+
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Relative> relatives = new ArrayList<>();
+
+	@Column(name = "status", nullable = false)
+	private boolean status;
+
+	@Column(name = "accept_terms", nullable = false)
+	private boolean acceptTerms;
+
+	@Transient
+	private String imageData;
 
 	public Long getId() {
 		return id;
@@ -154,7 +168,7 @@ public class User
 		return agencyCode;
 	}
 
-	public void setAgencyCode(String agencyName) {
+	public void setAgencyCode(String agencyCode) {
 		this.agencyCode = agencyCode;
 	}
 
@@ -233,5 +247,45 @@ public class User
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	
+
+	public Long getClubTypeId() {
+		return clubTypeId;
+	}
+
+	public void setClubTypeId(Long clubTypeId) {
+		this.clubTypeId = clubTypeId;
+	}
+
+	public boolean isAcceptTerms() {
+		return acceptTerms;
+	}
+
+	public void setAcceptTerms(boolean acceptTerms) {
+		this.acceptTerms = acceptTerms;
+	}
+
+	public String getImageData() {
+		return imageData;
+	}
+
+	public void setImageData(String imageData) {
+		this.imageData = imageData;
+	}
+
+	public List<Relative> getRelatives() {
+		return relatives;
+	}
+
+	public void setRelatives(List<Relative> relatives) {
+		this.relatives = relatives;
+	}
+
+	/*
+	 * public void addRelative(Relative relative) { relatives.add(relative);
+	 * relative.setUser(this); }
+	 * 
+	 * public void removeRelative(Relative relative) { relatives.remove(relative);
+	 * relative.setUser(null); }
+	 */
+
 }

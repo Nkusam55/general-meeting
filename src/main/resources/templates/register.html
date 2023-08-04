@@ -1,257 +1,317 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<head>
- <meta charset="UTF-8">
-<title>COUNCIL MEETING</title>
-<script type="text/javascript" th:src="@{/js/jquery-3.7.0.min.js}"></script>
-<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />2
-<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
-<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
-</head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" th:fragment="header">
-    <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/}">COUNCIL MEETING</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+   <head>
+      <meta charset="UTF-8">
+      <title>COUNCIL MEETING</title>
+      <script type="text/javascript" th:src="@{/js/jquery-3.7.0.min.js}"></script>
+      <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+      2
+      <script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+      <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+   </head>
+   <script>
+	   
+ 
+      function addRelative() {
+             
+         let relativeIndex = parseInt($('#relativesDiv div.relativeDivClass:last').attr("relativeIndex"));
+         relativeIndex = relativeIndex+1;
+         var buildDivId = "relativeDivId_"+relativeIndex;
+         var relativeDiv  = '<div id='+buildDivId+' class="relativeDivClass" relativeIndex='+relativeIndex+'>' +
+                    '<label  class="form-label">Relative Name: ' +
+                      '<input  class="form-control" type="text" name="relatives['+relativeIndex+'].name" required>' +
+                    '</label>' +
+                    '<label  class="form-label"> Relationship Type: ' +
+                       '<select class="form-control" name="relatives['+relativeIndex+'].relationship" required>' +
+                          '<option value="" selected>Select Relationship</option> ' +
+                          '<option value="Parent">Parent</option>' +
+                          '<option value="Sibling">Sibling</option>' +
+                          '<option value="Spouse">Spouse</option>' +
+                          '<option value="Friend">Friend</option>' +
+                          '<option value="Other">Other</option>' +
+                       '</select>' +
+                    '</label>' +
+                    '<button type="button" class="btn btn-danger" onclick="removeRelative(this)">Remove</button>' +
+                 '</div>';
+                 
+                 $('#relativesDiv div.relativeDivClass:last').append(relativeDiv);
+         }
+      
+         function removeRelative(button) {
+            $("#"+button.parentElement.attributes.id.nodeValue).remove();
+         }
+   </script>
+   <body>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" th:fragment="header">
+         <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/}">COUNCIL MEETING</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</nav>
-<br />
-<br />
-<br />
-<div class="container">
-    <div class="row col-md-8 offset-md-2">
-        <div class="card">
+            </button>
+         </div>
+      </nav>
+      <br />
+      <br />
+      <br />
+      <div class="container">
+      <div class="row col-md-8 offset-md-2">
+         <div class="card">
             <div class="card-header">
-                <h2 class="text-center">Registration</h2>
+               <h2 class="text-center">Registration</h2>
             </div>
             <div class="card-body">
-                <form method="post" role="form" th:action="@{/register/save}" th:object="${user}"  enctype="multipart/form-data">
-
-                    <div class="form-group mb-3">
-                        <label class="form-label">First Name</label>
-                        <input class="form-control"
-                               id="firstName"
-                               name="firstName"
-                               placeholder="Enter first name"
-                               th:field="*{firstName}"
-                               th:required="required"
-                               type="text"
+               <form method="post" role="form" th:action="@{/register/save}" th:object="${user}"  enctype="multipart/form-data">
+                  <div class="form-group mb-3">
+                     <label class="form-label">First Name</label>
+                     <input class="form-control"
+                        id="firstName"
+                        name="firstName"
+                        placeholder="Enter first name"
+                        th:field="*{firstName}"
+                        th:required="required"
+                        type="text"
                         />
-                        <p th:errors="*{firstName}" class="text-danger"
-                           th:if="${#fields.hasErrors('firstName')}">
-                        </p>
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label class="form-label">Last Name</label>
-                        <input class="form-control"
-                               id="lastName"
-                               name="lastName"
-                               placeholder="Enter last name"
-                               th:field="*{lastName}"
-                               th:required="required"
-                               type="text"
+                     <p th:errors="*{firstName}" class="text-danger"
+                        th:if="${#fields.hasErrors('firstName')}">
+                     </p>
+                  </div>
+                  <div class="form-group mb-3">
+                     <label class="form-label">Last Name</label>
+                     <input class="form-control"
+                        id="lastName"
+                        name="lastName"
+                        placeholder="Enter last name"
+                        th:field="*{lastName}"
+                        th:required="required"
+                        type="text"
                         />
-                        <p th:errors="*{lastName}" class="text-danger"
-                           th:if="${#fields.hasErrors('lastName')}">
-                        </p>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label class="form-label">Email</label>
-                        <input class="form-control"
-                               id="email"
-                               name="email"
-                               placeholder="Enter email address"
-                               th:field="*{email}"
-                               th:required="required"
-                               type="email"
+                     <p th:errors="*{lastName}" class="text-danger"
+                        th:if="${#fields.hasErrors('lastName')}">
+                     </p>
+                  </div>
+                  <div class="form-group mb-3">
+                     <label class="form-label">Email</label>
+                     <input class="form-control"
+                        id="email"
+                        name="email"
+                        placeholder="Enter email address"
+                        th:field="*{email}"
+                        th:required="required"
+                        type="email"
                         />
-                        <p th:errors="*{email}" class="text-danger"
-                           th:if="${#fields.hasErrors('email')}">
-                        </p>
-                    </div>
-                    
-                    <div class="form-group mb-3">
-                        <label class="form-label">Mobile Number</label>
-                        <input class="form-control"
-                               id="mobile"
-                               name="mobile"
-                               placeholder="Enter mobile number"
-                               th:field="*{mobile}"
-                               th:required="required"
-                               type="text"
+                     <p th:errors="*{email}" class="text-danger"
+                        th:if="${#fields.hasErrors('email')}">
+                     </p>
+                  </div>
+                  <div class="form-group mb-3">
+                     <label class="form-label">Mobile Number</label>
+                     <input class="form-control"
+                        id="mobile"
+                        name="mobile"
+                        placeholder="Enter mobile number"
+                        th:field="*{mobile}"
+                        th:required="required"
+                        type="text"
                         />
-                       <p th:errors="*{mobile}" class="text-danger"
-                           th:if="${#fields.hasErrors('mobile')}">
-                        </p>
-                    </div>
-                    
+                     <p th:errors="*{mobile}" class="text-danger"
+                        th:if="${#fields.hasErrors('mobile')}">
+                     </p>
+                  </div>
+                  <div class="form-group mb-3">
+                     <label class="form-label">Address</label>
+                     <input class="form-control"
+                        id="address"
+                        name="address"
+                        placeholder="Enter Address"
+                        th:field="*{address}"
+                        th:required="required"
+                        type="text"
+                        />
+                     <p th:errors="*{address}" class="text-danger"
+                        th:if="${#fields.hasErrors('address')}">
+                     </p>
+                  </div>
+                  <div class="form-group mb-3">
+                     <label class="form-label">Password</label>
+                     <input class="form-control"
+                        id="password"
+                        name="password"
+                        placeholder="Enter password"
+                        th:field="*{password}"
+                        th:required="required"
+                        type="password"
+                        />
+                     <p th:errors="*{password}" class="text-danger"
+                        th:if="${#fields.hasErrors('password')}">
+                     </p>
+                  </div>
+                  <div class="form-group mb-3">
+                     <label class="form-label">Zone</label>
+                     <select class="form-control" th:field="*{zoneId}" id="zoneId" th:required="required">
+                        <option value="0">Select Zone</option>
+                        <option th:each="zone : ${zoneList}" th:value="${zone.id}" th:text="${zone.name}"></option>
+                     </select>
+                     <p th:errors="*{zoneId}" class="text-danger"
+                        th:if="${#fields.hasErrors('zoneId')}">
+                     </p>
+                  </div>
+                  <div class="form-group mb-3">
+                     <label class="form-label">Division</label>
+                     <input class="form-control"
+                        id="divisionName"
+                        name="divisionName"
+                        placeholder="Enter division name"
+                        th:field="*{divisionName}"
+                        th:required="required"
+                        type="text"
+                        />
+                     <p th:errors="*{divisionName}" class="text-danger"
+                        th:if="${#fields.hasErrors('divisionName')}">
+                     </p>
+                  </div>
+                  <div class="form-group mb-3">
+                     <label class="form-label">Branch</label>
+                     <input class="form-control"
+                        id="branch"
+                        name="branch"
+                        placeholder="Enter branch name"
+                        th:field="*{branch}"
+                        th:required="required"
+                        type="text"
+                        />
+                     <p th:errors="*{branch}" class="text-danger"
+                        th:if="${#fields.hasErrors('branch')}">
+                     </p>
+                  </div>
+                  <div class="form-group mb-3">
+                     <label class="form-label">Agency Code</label>
+                     <input class="form-control"
+                        id="agencyCode"
+                        name="agencyCode"
+                        placeholder="Enter Agent Code"
+                        th:field="*{agencyCode}"
+                        th:required="required"
+                        type="text"
+                        />
+                     <p th:errors="*{agencyCode}" class="text-danger"
+                        th:if="${#fields.hasErrors('agencyCode')}">
+                     </p>
+                  </div>
+                  <div id="relativesDiv">
+                     <h6>Relatives</h6>
+                     <div th:each="relative, relativeStat : *{relatives}">
+                       <div id="relativeDivId_0" class="relativeDivClass" relativeIndex="0">
+                        <label  class="form-label">Relative Name: 
+                        <input  class="form-control" type="text" th:field="*{relatives[__${relativeStat.index}__].name}">
+                        </label>
+                        <label  class="form-label">
+                           Relationship Type:
+                           <select class="form-control" th:field="*{relatives[__${relativeStat.index}__].relationship}" th:required>
+                              <option value="" selected>Select Relationship</option>
+                              <option value="Parent">Parent</option>
+                              <option value="Sibling">Sibling</option>
+                              <option value="Spouse">Spouse</option>
+                              <option value="Friend">Friend</option>
+                              <option value="Other">Other</option>
+                           </select>
+                        </label>
+                        <button type="button" id="addBtn" class="btn btn-success" onclick="addRelative()">Add</button>
+                       </div>
+                     </div>
                      <div class="form-group mb-3">
-                        <label class="form-label">Address</label>
-                        <input class="form-control"
-                               id="address"
-                               name="address"
-                               placeholder="Enter Address"
-                               th:field="*{address}"
-                               th:required="required"
-                               type="text"
-                        />
-                       <p th:errors="*{address}" class="text-danger"
-                           th:if="${#fields.hasErrors('address')}">
+                        <label class="form-label">Membership Type</label>
+                        <div class="custom-control custom-radio custom-control-inline">
+                           <input type="radio" id="membershipTypeYear" name="membershipTypeYear" class="custom-control-input" value="Y" th:field="*{membershipType}" th:required="required">
+                           <label class="custom-control-label" for="membershipTypeYear">Yearly</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                           <input type="radio" id="membershipTypeLife" name="membershipTypeLife" class="custom-control-input" value="L" th:field="*{membershipType}" th:required="required">
+                           <label class="custom-control-label" for="membershipTypeLife">Life</label>
+                        </div>
+                        <p th:errors="*{membershipType}" class="text-danger"
+                           th:if="${#fields.hasErrors('membershipType')}">
                         </p>
-                    </div>
-                          
-                    
-                    <div class="form-group mb-3">
-                        <label class="form-label">Password</label>
-                        <input class="form-control"
-                               id="password"
-                               name="password"
-                               placeholder="Enter password"
-                               th:field="*{password}"
-                               th:required="required"
-                               type="password"
-                        />
-                        <p th:errors="*{password}" class="text-danger"
-                           th:if="${#fields.hasErrors('password')}">
+                     </div>
+                     <div class="form-group mb-3">
+                        <label class="form-label">Membership Patron</label>
+                        <div class="custom-control custom-radio custom-control-inline">
+                           <input type="radio" id="membershipPatternYes" name="membershipPatternYes" class="custom-control-input" value="0" th:field="*{membershipPattern}" th:required="required">
+                           <label class="custom-control-label" for="membershipPatternYes">Yes</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                           <input type="radio" id="membershipPatternNo" name="membershipPatternNo" class="custom-control-input" value="1" th:field="*{membershipPattern}" th:required="required">
+                           <label class="custom-control-label" for="membershipPatternNo">No</label>
+                        </div>
+                        <p th:errors="*{membershipType}" class="text-danger"
+                           th:if="${#fields.hasErrors('membershipPattern')}">
                         </p>
-                    </div>
-                    
-                   <div class="form-group mb-3">
-                        <label class="form-label">Zone</label>
-                       <select class="form-control" th:field="*{zoneId}" id="zoneId" th:required="required">
-					    <option value="0">select zone</option>
-					    <option th:each="zone : ${zoneList}" th:value="${zone.id}" th:text="${zone.name}"></option>
-					   </select>
-                   </div>
-                   
-                    
-                    <div class="form-group mb-3">
-                        <label class="form-label">Division</label>
+                     </div>
+                     <div class="form-group mb-3">
+                        <label class="form-label">Membership Patron Number</label>
                         <input class="form-control"
-                               id="divisionName"
-                               name="divisionName"
-                               placeholder="Enter division name"
-                               th:field="*{divisionName}"
-                               th:required="required"
-                               type="text"
-                        />
-                       <p th:errors="*{divisionName}" class="text-danger"
-                           th:if="${#fields.hasErrors('divisionName')}">
-                        </p>
-                    </div>
-                    
-                   <div class="form-group mb-3">
-                    <label class="form-label">Branch</label>
-                    <input class="form-control"
-                           id="branch"
-                           name="branch"
-                           placeholder="Enter branch name"
-                           th:field="*{branch}"
+                           id="membershipNumber"
+                           name="membershipNumber"
+                           placeholder="Enter membership number"
+                           th:field="*{membershipNumber}"
                            th:required="required"
                            type="text"
-                    />
-                   <p th:errors="*{branch}" class="text-danger"
-                       th:if="${#fields.hasErrors('branch')}">
-                    </p>
-                  </div>
-                  
-	              <div class="form-group mb-3">
-	                <label class="form-label">Agency Code</label>
-	                <input class="form-control"
-	                       id="agencyCode"
-	                       name="agencyCode"
-	                       placeholder="Enter Agent Code"
-	                       th:field="*{agencyCode}"
-	                       th:required="required"
-	                       type="text"
-	                />
-	               <p th:errors="*{agencyCode}" class="text-danger"
-	                   th:if="${#fields.hasErrors('agencyCode')}">
-	                </p>
-	            </div>
-	            
-	             <div class="form-group mb-3">
-	                <label class="form-label">Membership Type</label>
-	               <div class="custom-control custom-radio custom-control-inline">
-                     <input type="radio" id="membershipTypeYear" name="membershipTypeYear" class="custom-control-input" value="Y" th:field="*{membershipType}" th:required="required">
-                     <label class="custom-control-label" for="membershipTypeYear">Yearly</label>
-                   </div>
-                   <div class="custom-control custom-radio custom-control-inline">
-                     <input type="radio" id="membershipTypeLife" name="membershipTypeLife" class="custom-control-input" value="L" th:field="*{membershipType}" th:required="required">
-                     <label class="custom-control-label" for="membershipTypeLife">Life</label>
-                  </div>
-	               <p th:errors="*{membershipType}" class="text-danger"
-	                   th:if="${#fields.hasErrors('membershipType')}">
-	                </p>
-	            </div>
-
-	            
-	            <div class="form-group mb-3">
-	                <label class="form-label">Membership Patron</label>
-	               <div class="custom-control custom-radio custom-control-inline">
-                     <input type="radio" id="membershipPatternYes" name="membershipPatternYes" class="custom-control-input" value="0" th:field="*{membershipPattern}" th:required="required">
-                     <label class="custom-control-label" for="membershipPatternYes">Yes</label>
-                   </div>
-                   <div class="custom-control custom-radio custom-control-inline">
-                     <input type="radio" id="membershipPatternNo" name="membershipPatternNo" class="custom-control-input" value="1" th:field="*{membershipPattern}" th:required="required">
-                     <label class="custom-control-label" for="membershipPatternNo">No</label>
-                  </div>
-	               <p th:errors="*{membershipType}" class="text-danger"
-	                   th:if="${#fields.hasErrors('membershipPattern')}">
-	                </p>
-	            </div>
-	            
-	            <div class="form-group mb-3">
-	                <label class="form-label">Membership Patron Number</label>
-	                <input class="form-control"
-	                       id="membershipNumber"
-	                       name="membershipNumber"
-	                       placeholder="Enter membership number"
-	                       th:field="*{membershipNumber}"
-	                       th:required="required"
-	                       type="text"
-	                />
-	               <p th:errors="*{membershipNumber}" class="text-danger"
-	                   th:if="${#fields.hasErrors('membershipNumber')}">
-	                </p>
-	            </div>
-	            
-	             <div class="form-group mb-3">
-	                <label class="form-label">Aadhar Number</label>
-	                <input class="form-control"
-	                       id="aadharNumber"
-	                       name="aadharNumber"
-	                       placeholder="Enter aadhar number"
-	                       th:field="*{aadharNumber}"
-	                       type="text"
-	                />
-	              <!-- <p th:errors="*{aadharNumber}" class="text-danger"
-	                   th:if="${#fields.hasErrors('aadharNumber')}">
-	                </p>-->
-	            </div>
-	            
-	            <div class="form-group mb-3">
-	                <label class="form-label">Photo</label>
-	                <br>
-                    <input type="file" name="photo"  th:field="*{photo}"  th:required="required" class="form-control-file">
- 	                <p th:errors="*{photo}" class="text-danger"
-	                   th:if="${#fields.hasErrors('photo')}">
-	                </p>
-	            </div>
-	            
-                <div class="form-group mb-3">
+                           />
+                        <p th:errors="*{membershipNumber}" class="text-danger"
+                           th:if="${#fields.hasErrors('membershipNumber')}">
+                        </p>
+                     </div>
+                     <div class="form-group mb-3">
+                        <label class="form-label">Club Type</label>
+                        <select class="form-control" th:field="*{clubTypeId}" id="clubTypeId" th:required="required">
+                           <option value="0">select club type</option>
+                           <option th:each="club : ${clubTypeList}" th:value="${club.id}" th:text="${club.name}"></option>
+                        </select>
+                        <p th:errors="*{clubTypeId}" class="text-danger"
+                           th:if="${#fields.hasErrors('clubTypeId')}">
+                        </p>
+                     </div>
+                     <div class="form-group mb-3">
+                        <label class="form-label">Aadhar Number</label>
+                        <input class="form-control"
+                           id="aadharNumber"
+                           name="aadharNumber"
+                           placeholder="Enter aadhar number"
+                           th:field="*{aadharNumber}"
+                           type="text"
+                           />
+                        <!-- <p th:errors="*{aadharNumber}" class="text-danger"
+                           th:if="${#fields.hasErrors('aadharNumber')}">
+                           </p>-->
+                     </div>
+                     <div class="form-group mb-3">
+                        <label class="form-label">Photo</label>
+                        <br>
+                        <input type="file" name="photo"  th:field="*{photo}"  th:required="required" class="form-control-file">
+                        <p th:errors="*{photo}" class="text-danger"
+                           th:if="${#fields.hasErrors('photo')}">
+                        </p>
+                     </div>
+                     <div class="form-group mb-3">
+                        <label class="form-label" style="font-size: 11px;">
+                        <input type="checkbox"  
+                           th:field="*{acceptTerms}"
+                           th:required="required"
+                           name="acceptTerms">
+                        I am remitting a sum of 2500/- Rs through online mode to enroll myself as a delegate observer for the GC Meeting. I assure to follow the rules and regulations of LIAFI.
+                        </label>
+                        <p th:errors="*{photo}" class="text-danger"
+                           th:if="${#fields.hasErrors('photo')}">
+                        </p>
+                     </div>
+                     <div class="form-group mb-3">
                         <button class="btn btn-primary" type="submit">Register</button>
                         <span>Already registered? <a href="/" th:href="@{/login}">Login
-                             here</a></span>
-                </div>
-                </form>
+                        here</a></span>
+                     </div>
+               </form>
+               </div>
             </div>
-        </div>
-    </div>
-</div>
-</body>
+         </div>
+      </div>
+   </body>
 </html>
