@@ -285,7 +285,7 @@
                      <div class="form-group mb-3">
                         <label class="form-label">Photo</label>
                         <br>
-                        <input type="file" name="photo"  th:field="*{photo}"  th:required="required" class="form-control-file">
+                        <input type="file" name="photo"  th:field="*{photo}" accept="image/*"  th:required="required" class="form-control-file">
                         <p th:errors="*{photo}" class="text-danger"
                            th:if="${#fields.hasErrors('photo')}">
                         </p>
