@@ -1,13 +1,13 @@
-package com.generalbody.service;
+package com.liafi.gcmeeting.service;
 
 import java.util.List;
 
 import javax.mail.MessagingException;
 
-import com.generalbody.dto.UserDto;
-import com.generalbody.entity.ClubTypeList;
-import com.generalbody.entity.User;
-import com.generalbody.entity.ZoneList;
+import com.liafi.gcmeeting.dto.UserDto;
+import com.liafi.gcmeeting.entity.ClubTypeList;
+import com.liafi.gcmeeting.entity.User;
+import com.liafi.gcmeeting.entity.ZoneList;
 
 /**
  * @author narendra kusam

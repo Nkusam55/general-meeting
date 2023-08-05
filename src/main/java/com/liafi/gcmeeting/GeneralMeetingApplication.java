@@ -1,4 +1,4 @@
-package com.generalbody;
+package com.liafi.gcmeeting;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

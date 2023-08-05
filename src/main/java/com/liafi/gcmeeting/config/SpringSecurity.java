@@ -1,4 +1,4 @@
-package com.generalbody.config;
+package com.liafi.gcmeeting.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -39,12 +39,12 @@ public class SpringSecurity {
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")
-                                .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/users?status=paid")
+                                .loginProcessingUrl("/gcmeeting/login")
+                                .defaultSuccessUrl("/gcmeeting/users?status=paid")
                                 .permitAll()
                 ).logout(
                         logout -> logout
-                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                                .logoutRequestMatcher(new AntPathRequestMatcher("/gcmeeting/logout"))
                                 .permitAll()
                 );
         return http.build();

@@ -1,4 +1,4 @@
-package com.generalbody.security;
+package com.liafi.gcmeeting.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -7,9 +7,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.generalbody.entity.Role;
-import com.generalbody.entity.User;
-import com.generalbody.repository.UserRepository;
+import com.liafi.gcmeeting.entity.Role;
+import com.liafi.gcmeeting.entity.User;
+import com.liafi.gcmeeting.repository.UserRepository;
 
 import java.util.Collection;
 import java.util.stream.Collectors;

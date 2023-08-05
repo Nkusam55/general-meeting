@@ -85,7 +85,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>generalmeeting</finalName>  
+		<finalName>liafi</finalName>  
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

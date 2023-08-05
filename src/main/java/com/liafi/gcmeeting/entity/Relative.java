@@ -1,21 +1,13 @@
-package com.generalbody.entity;
-
-import java.util.Objects;
+package com.liafi.gcmeeting.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -28,19 +20,19 @@ public class Relative {
 
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
 
-	@Column(name = "relationship", nullable = false, unique = true)
+	@Column(name = "relationship", nullable = false)
 	private String relationship;
 
-	@Column(name = "name", nullable = false, unique = true)
+	@Column(name = "name", nullable = false)
 	private String name;
 
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+    private User user;
+	
 	public Long getId() {
 		return id;
 	}

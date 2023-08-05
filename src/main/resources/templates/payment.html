@@ -63,9 +63,9 @@
 	}
 	
     function createOrderID() {
-        var amount  = $("#yearTermCurrency").val();  
+        var amount  = $("#regFeeAmount").val();  
 		totalAmount = amount*100;
-		var orderResponse = doGet("/generalbody/createOrder", totalAmount, false);
+		var orderResponse = doGet("/liafi/gcmeeting/createOrder", totalAmount, false);
 	    if(orderResponse.statusCode == 200) {
            console.log("razorpayOrderId" + orderResponse.razorpayOrderId);
            openCheckout(amount, $("#mailId").val(), orderResponse.razorpayOrderId);
@@ -87,7 +87,7 @@ function openCheckout(amount, razorpayOrderId) {
         "name": "[[${companyName}]]",
         "image": "/lic.jpg",
         "order_id": razorpayOrderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-        "callback_url": "/generalbody/paymentSuccess/"+amount+"/"+"[[${mail}]]/",
+        "callback_url": "/liafi/gcmeeting/paymentSuccess/"+amount+"/"+"[[${mail}]]/",
         "notes": {
             "description": "sample text",
             "company_name": "[[${companyName}]]",

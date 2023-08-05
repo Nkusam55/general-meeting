@@ -1,8 +1,7 @@
-package com.generalbody.entity;
+package com.liafi.gcmeeting.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -30,7 +28,7 @@ public class User
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@Column(nullable = false)
@@ -88,7 +86,7 @@ public class User
 			inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
 	private List<Role> roles = new ArrayList<>();
 
-	@OneToMany(cascade = CascadeType.ALL)
+    @Transient
 	private List<Relative> relatives = new ArrayList<>();
 
 	@Column(name = "status", nullable = false)
