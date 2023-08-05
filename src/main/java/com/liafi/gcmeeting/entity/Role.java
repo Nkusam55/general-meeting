@@ -1,4 +1,4 @@
-package com.generalbody.entity;
+package com.liafi.gcmeeting.entity;
 
 import java.util.List;
 

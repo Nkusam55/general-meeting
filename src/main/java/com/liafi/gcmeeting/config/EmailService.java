@@ -1,4 +1,4 @@
-package com.generalbody.config;
+package com.liafi.gcmeeting.config;
 
 import java.util.Base64;
 
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import com.generalbody.entity.User;
+import com.liafi.gcmeeting.entity.User;
 
 @Service
 public class EmailService {

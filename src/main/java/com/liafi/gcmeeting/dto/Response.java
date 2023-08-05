@@ -1,4 +1,4 @@
-package com.generalbody.dto;
+package com.liafi.gcmeeting.dto;
 
 public class Response {
 

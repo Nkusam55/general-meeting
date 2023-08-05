@@ -1,4 +1,4 @@
-package com.generalbody.service.impl;
+package com.liafi.gcmeeting.service.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,18 +14,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.generalbody.config.EmailService;
-import com.generalbody.dto.UserDto;
-import com.generalbody.entity.ClubTypeList;
-import com.generalbody.entity.Relative;
-import com.generalbody.entity.Role;
-import com.generalbody.entity.User;
-import com.generalbody.entity.ZoneList;
-import com.generalbody.repository.ClubListRepository;
-import com.generalbody.repository.RoleRepository;
-import com.generalbody.repository.UserRepository;
-import com.generalbody.repository.ZoneListRepository;
-import com.generalbody.service.UserService;
+import com.liafi.gcmeeting.config.EmailService;
+import com.liafi.gcmeeting.dto.UserDto;
+import com.liafi.gcmeeting.entity.ClubTypeList;
+import com.liafi.gcmeeting.entity.Relative;
+import com.liafi.gcmeeting.entity.Role;
+import com.liafi.gcmeeting.entity.User;
+import com.liafi.gcmeeting.entity.ZoneList;
+import com.liafi.gcmeeting.repository.ClubListRepository;
+import com.liafi.gcmeeting.repository.RelativesRepository;
+import com.liafi.gcmeeting.repository.RoleRepository;
+import com.liafi.gcmeeting.repository.UserRepository;
+import com.liafi.gcmeeting.repository.ZoneListRepository;
+import com.liafi.gcmeeting.service.UserService;
 
 
 /**
@@ -41,6 +42,7 @@ public class UserServiceImpl implements UserService {
 	private ZoneListRepository zoneListRepository;
 	private PasswordEncoder passwordEncoder;
 	private ClubListRepository clubListRepository;
+	private RelativesRepository relativesRepository;
 	
 	@Autowired
 	EmailService mailService;
@@ -49,12 +51,14 @@ public class UserServiceImpl implements UserService {
 			RoleRepository roleRepository,
 			ZoneListRepository zoneListRepository,
 			ClubListRepository clubListRepository,
-			PasswordEncoder passwordEncoder) {
+			PasswordEncoder passwordEncoder,
+			RelativesRepository relativesRepository) {
 		this.userRepository = userRepository;
 		this.roleRepository = roleRepository;
 		this.zoneListRepository = zoneListRepository;
 		this.clubListRepository = clubListRepository;
 		this.passwordEncoder = passwordEncoder;
+		this.relativesRepository = relativesRepository;
 	}
 
 	@Override
@@ -78,18 +82,11 @@ public class UserServiceImpl implements UserService {
 		String appId = generateUniqueString(userDto.getFirstName());
 		user.setAppointmentId(appId);
 		user.setStatus(false);
-		List<Relative> relatives = new ArrayList<>();
-        for (Relative relative : userDto.getRelatives()) {
-            relative.setUser(user);
-            relatives.add(relative);
-        }
-
-        user.setRelatives(relatives);
-
+		
 		try {
 			user.setPhoto(userDto.getPhoto().getBytes());
 		} catch (IOException e) {
-			throw new Exception("Aadhar uploading failed");
+			throw new Exception("Photo uploading failed");
 		}
 
 		//encrypt the password once we integrate spring security
@@ -113,7 +110,16 @@ public class UserServiceImpl implements UserService {
 			user.setRoles(Arrays.asList(adminRole));
 		}
 		try {
-			userRepository.save(user);
+			User savedUser = userRepository.save(user);
+			List<Relative> relatives = new ArrayList<>();
+	        for (Relative relative : userDto.getRelatives()) {
+	            relative.setUser(savedUser);
+	            relativesRepository.save(relative);
+	            relatives.add(relative);
+	        }
+
+	       // user.setRelatives(relatives);
+
 		}catch (Exception e) {
 			throw new Exception(e);
 		}
@@ -145,8 +151,13 @@ public class UserServiceImpl implements UserService {
         userDto.setAppointmentId(user.getAppointmentId());
 		ZoneList zone = zoneListRepository.findById(user.getZoneId()).get();
 	    userDto.setZoneName(zone.getName());	
-	    ClubTypeList clubTypeList = clubListRepository.findById(user.getClubTypeId()).get();
-	    userDto.setClubTypeName(clubTypeList.getName());
+	    if(user.getClubTypeId()!=null) {
+	     ClubTypeList clubTypeList = clubListRepository.findById(user.getClubTypeId()).get();	    	
+		 userDto.setClubTypeName(clubTypeList.getName());
+	    }
+	    
+	    List<Relative> relativesList = relativesRepository.findByUserId(user.getId());
+	    userDto.setRelatives(relativesList);
 	    return userDto;
 	}
 

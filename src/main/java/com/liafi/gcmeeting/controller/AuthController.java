@@ -1,4 +1,4 @@
-package com.generalbody.controller;
+package com.liafi.gcmeeting.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,12 +25,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.generalbody.dto.UserDto;
-import com.generalbody.entity.ClubTypeList;
-import com.generalbody.entity.Relative;
-import com.generalbody.entity.User;
-import com.generalbody.entity.ZoneList;
-import com.generalbody.service.UserService;
+import com.liafi.gcmeeting.dto.UserDto;
+import com.liafi.gcmeeting.entity.ClubTypeList;
+import com.liafi.gcmeeting.entity.Relative;
+import com.liafi.gcmeeting.entity.User;
+import com.liafi.gcmeeting.entity.ZoneList;
+import com.liafi.gcmeeting.service.UserService;
 import com.razorpay.Order;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
@@ -40,6 +40,7 @@ import com.razorpay.RazorpayException;
  */
 
 @Controller
+@RequestMapping("/gcmeeting")
 public class AuthController {
 
 	private UserService userService;
@@ -103,7 +104,7 @@ public class AuthController {
 
 		try {
 			userService.saveUser(user);
-			return "redirect:/payment?mail="+user.getEmail();
+			return "redirect:/gcmeeting/payment?mail="+user.getEmail();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "";

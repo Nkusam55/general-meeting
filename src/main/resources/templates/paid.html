@@ -15,6 +15,13 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/gcmeeting/login}">Login</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
 <br />
@@ -22,7 +29,7 @@
 <br />
 <div class="container">
     <div class="row">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-9">
             <div class="card">
                 <div class="card-header">
                     <h3 class="text-center" style="color: #008000;">Payment Successfull</h3>
@@ -30,14 +37,20 @@
                 <div class="card-body">
                   <span>Name : </span><span th:text="${name}">${name}</span> <br>
                    Your <span th:text="${amount}">amount</span>₹ Paid Successfully  <br>
-                   Your Appointment Id is : <span th:text="${appointmentId}">${appointmentId}</span> <br>
+                   Your Appointment Id is : <strong><span th:text="${appointmentId}">${appointmentId}</span> </strong><br>
                   <!-- <div th:if="${mailStatus}">
 					 <span th:text="#{mailStatusMsg}"></span>
 				   </div>
 				   <div th:unless="${mailStatus}">
 				     <span th:text="#{mailStatusErrMsg}">failed</span>
 				   </div>-->
-               <span> Appointment Id Sent to Your Register Mail, Thank You!!</span>
+                  <span>
+				     Thank you for registering with us. We are pleased to inform you that your appointment has been successfully scheduled.
+                  </span>
+                  <br>
+                  <span>
+                     You will receive further details about the appointment via your registered email. 
+                  </span>
                 </div>
             </div>
         </div>
