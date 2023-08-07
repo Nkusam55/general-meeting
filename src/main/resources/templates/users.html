@@ -3,46 +3,91 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COUNCIL MEETING</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
-    <script type="text/javascript" th:src="@{/js/jquery-3.7.0.min.js}"></script>
-	<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js"></script>
-	<link th:href="@{/css/datatables.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/datatables.min.css}" rel="stylesheet" />
     <link th:href="@{/css/bootstrap-toggle.min.css}" rel="stylesheet" />
-    <script type="text/javascript" th:src="@{/js/bootstrap-toggle.min.js}"></script>
+  
 </head>
+<style>
+.table-bordered {
+    border: 1px solid #000 !important; /* Add a border to the entire table */
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #000 !important; /* Add borders to header cells and data cells */
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f7f7f7 !important; 
+}
+
+.table-striped tbody tr:hover {
+    background-color: #f0f0f0 !important; 
+}
+
+  .toggle.android { border-radius: 0px !important;;}
+  .toggle.android .toggle-handle { border-radius: 0px !important;; }
+
+
+	
+</style>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">COUNCIL MEETING</a>
-        <label>Transaction: </label>
-        <input type="checkbox" id="transactionStatus" data-toggle="toggle" data-on="Success" data-off="Failed">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/gcmeeting/register}">Register</a>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    
+    <div class="container">
+        <!-- Brand/logo -->
+        <a class="navbar-brand" th:href="@{/gcmeeting/index}">COUNCIL MEETING</a>
+
+        <!-- Toggler/collapsibe Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navigation Links -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/gcmeeting/register}">Register</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/gcmeeting/logout}">Logout</a>
+                    <a class="nav-link" th:href="@{/gcmeeting/logout}">Logout</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
- <div class="container mt-5">
-  <h1>Registered Users</h1>
-  <table class="table table-bordered table-striped" id="usersTable">
+
+<br>
+<div class="row">
+	<!--<div class="col-md-1"></div>-->
+	<div class="col-md-5"><h3>Registered Users</h3></div>
+	<div class="col-md-2"></div>
+    <!--<div class="col-md-4">
+	  <label>Transaction Status: </label>
+      <input th:type="checkbox" id="transactionStatus" th:checked="${true}" th:onclick="'javascript:usersByStatus(this);'"
+       data-on="Success" ata-style="android" data-off="Failed" data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
+    </div>-->
+</div>
+<!--<div class="container">-->
+  <div class="row">
+   <!--<div class="col-lg-10 mt-5 mb-5">-->
+    <table id="usersTable" class="table table-bordered table-responsive" style="width: 100%">
     <thead class="thead-dark">
       <tr>
         <th>Name</th>
         <th>Email</th>
         <th>Mobile</th>
-        <th>Membership Parton Number</th>
         <th>Zone</th>
-        <th>Division</th>
-        <th>Branch</th>
         <th>Agency Code</th>
         <th>Appointment Number</th>
+        <th>Payment Id</th>
+        <th>Transaction Status</th>
+        <th>View</th>
      </tr>
     </thead>
     <tbody>
@@ -50,19 +95,30 @@
         <td th:text="${user.name}"></td>
         <td th:text="${user.email}"></td>
         <td th:text="${user.mobile}"></td>
-        <td th:text="${user.membershipNumber}"></td>
         <td th:text="${user.zoneName}"></td>
-        <td th:text="${user.divisionName}"></td>
-        <td th:text="${user.branch}"></td>
         <td th:text="${user.agencyCode}"></td>
         <td th:text="${user.appointmentId}"></td>
-     </tr>
+        <td th:text="${user.paymentId}"></td>
+        <td th:text="${user.status?'Success' : 'Failed'}" ></td>
+        <td><a class="" th:href="@{/gcmeeting/user/profile/__${user.id}__}">Info</a></td>
+      </tr>  
     </tbody>
    </table>
  </div>
+ <!--</div>-->
+ 
+ 
+  <script type="text/javascript" th:src="@{/js/jquery-3.7.0.min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/datatables.min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/bootstrap-toggle.min.js}"></script>
 </body>
 
 <script>
+function usersByStatus(button){
+	alert(button.checked);
+}
+
+
 $(document).ready(function() {
 	$("#usersTable").DataTable({
 			'aoColumnDefs': [{
@@ -70,7 +126,31 @@ $(document).ready(function() {
      				'aTargets': [-1] /* 1st one, start by the right */
  				}]
 	});
-})
+});
+</script>
+<script>
+$(document).ready(function() {	
+	$('.userInfoClass').on('click', function () {
+      var userId = $(this).attr("userId");
+      alert(userId);
+      $('#userDetailsModal').modal('show');
+    });
+    
+    $('#transactionStatus').change(function() {
+        if ($(this).is(':checked')) {
+          fetchTableData("paid");
+        } else {
+          fetchTableData("failed");
+        }
+    });
+});
+
+  function fetchTableData(status) {
+        // Use Ajax to fetch data from the server and update the table using Thymeleaf
+        $.get('/liafi/gcmeeting/usersByStatus?status='+status, function(data) {
+            $('#usersTable tbody').html(data);
+        });
+    }
 </script>
 
 </html>

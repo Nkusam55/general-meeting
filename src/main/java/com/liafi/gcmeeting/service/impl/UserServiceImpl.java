@@ -1,5 +1,8 @@
 package com.liafi.gcmeeting.service.impl;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,12 +10,15 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import javax.imageio.ImageIO;
 import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import com.liafi.gcmeeting.config.EmailService;
 import com.liafi.gcmeeting.dto.UserDto;
@@ -82,7 +88,8 @@ public class UserServiceImpl implements UserService {
 		String appId = generateUniqueString(userDto.getFirstName());
 		user.setAppointmentId(appId);
 		user.setStatus(false);
-		
+		user.setOrderId("not_created");
+		user.setPaymentId("not_done");
 		try {
 			user.setPhoto(userDto.getPhoto().getBytes());
 		} catch (IOException e) {
@@ -130,6 +137,11 @@ public class UserServiceImpl implements UserService {
 	public User findByEmail(boolean status,String email) {
 		return userRepository.findByEmail(status,email);
 	}
+	
+	@Override
+	public User findById(long usrId) {
+		return userRepository.findById(usrId).get();
+	}
 
 	@Override
 	public List<UserDto> findAllUsers(boolean status) {
@@ -138,8 +150,10 @@ public class UserServiceImpl implements UserService {
 				.collect(Collectors.toList());
 	}
 
-	private UserDto convertEntityToDto(User user){
+    @Override	
+	public UserDto convertEntityToDto(User user){
 		UserDto userDto = new UserDto();
+		userDto.setId(user.getId());
 		userDto.setName(user.getName());
 		userDto.setEmail(user.getEmail());
 		userDto.setMobile(user.getMobile());
@@ -158,6 +172,27 @@ public class UserServiceImpl implements UserService {
 	    
 	    List<Relative> relativesList = relativesRepository.findByUserId(user.getId());
 	    userDto.setRelatives(relativesList);
+	    
+	    userDto.setOrderId(user.getOrderId());
+	    userDto.setPaymentId(user.getPaymentId());
+	    userDto.setAcceptTerms(user.isAcceptTerms());
+	    userDto.setStatus(user.isStatus());
+	    userDto.setMembershipType(user.getMembershipType());
+	    userDto.setAddress(user.getAddress());
+	    try {
+	    	/*if(user.getPhoto()!=null) {
+	    	 ByteArrayInputStream inStreambj = new ByteArrayInputStream(user.getPhoto());
+	         BufferedImage newImage = ImageIO.read(inStreambj);
+	         File userImage = new File(userDto.getName()+".jpg");
+	         ImageIO.write(newImage, "jpg",userImage);
+	         System.out.println("Image generated from the byte array.");*/
+	         //userDto.setPhoto((MultipartFile) userImage);
+	         //String url = MvcUriComponentsBuilder.fromMethodName(UserServiceImpl.class, "getImage", userImage.getName().toString()).build().toString();
+	    	//}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Photo Ignore Error ..........");
+		}
 	    return userDto;
 	}
 
@@ -197,13 +232,29 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int activateUserStatus(boolean status, long userId) {
-		return userRepository.activateUserStatus(status, userId);
+	public User updateUserData(User user) {
+		return userRepository.save(user);
 	}
 	
 	@Override
 	public String sendMailAfterPayment(User user) throws MessagingException {
 		return mailService.sendMail(user);
+	}
+
+	@Override
+	public List<UserDto> findAll() {
+		List<User> users = userRepository.findAll();
+		return users.stream().map((user) -> convertEntityToDto(user))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public boolean checkCred(String mailId, String password) {
+		
+		//User user = userRepository.findByEmail(true,mailId);
+
+	//	user.setPassword(passwordEncoder. .dec(user.getPassword()));
+		return true;
 	}
 	
 }

@@ -37,14 +37,14 @@ public class SpringSecurity {
                                 .antMatchers("/index").permitAll()
                                 .antMatchers("/users").hasRole("ADMIN")
                 ).formLogin(
-                        form -> form
-                                .loginPage("/login")
-                                .loginProcessingUrl("/gcmeeting/login")
-                                .defaultSuccessUrl("/gcmeeting/users?status=paid")
-                                .permitAll()
-                ).logout(
+				/*
+				 * form -> form .loginPage("/login") .loginProcessingUrl("/gcmeeting/login")
+				 * .defaultSuccessUrl("/gcmeeting/users?status=paid") .permitAll()
+				 */
+                ).and().logout(
                         logout -> logout
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/gcmeeting/logout"))
+                                .logoutSuccessUrl("/gcmeeting/login?logout")
                                 .permitAll()
                 );
         return http.build();

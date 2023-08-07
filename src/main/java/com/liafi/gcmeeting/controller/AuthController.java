@@ -28,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.liafi.gcmeeting.dto.UserDto;
 import com.liafi.gcmeeting.entity.ClubTypeList;
 import com.liafi.gcmeeting.entity.Relative;
+import com.liafi.gcmeeting.entity.Role;
 import com.liafi.gcmeeting.entity.User;
 import com.liafi.gcmeeting.entity.ZoneList;
 import com.liafi.gcmeeting.service.UserService;
@@ -64,13 +65,18 @@ public class AuthController {
 	@Value("${rzp_company_name}")
 	private String companyName;
 
-	@GetMapping("index")
+	@GetMapping("/index")
 	public String home() {
 		return "index";
 	}
 
 	@GetMapping("/login")
 	public String loginForm() {
+		return "login";
+	}
+	
+	@GetMapping("/logout")
+	public String logoutForm() {
 		return "login";
 	}
 
@@ -148,12 +154,39 @@ public class AuthController {
 			map.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
 			map.put("statusCode", 500);
 			map.put("statusMsg", e.getMessage());
-			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 		return map;
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
+	@RequestMapping(value = { "/usersList" }, method = RequestMethod.POST)
+	public String payment(Model model,@RequestParam("username") String mailId,@RequestParam("password") String password) {
+		List<UserDto> users = new ArrayList<UserDto>();
+		UserDto userDto = new UserDto();
+	    try {
+	    	if(userService.checkCred(mailId,password)) {
+	    		User user = userService.findByEmail(true, mailId);
+	    		List<Role> roleList = user.getRoles();
+	    		if(roleList.get(0).getName().equalsIgnoreCase("ROLE_ADMIN")) {
+	    			users = userService.findAll();
+	    			model.addAttribute("users", users);
+	    			return "users";
+	    		}else {
+	    			userDto = userService.convertEntityToDto(user);
+	    			model.addAttribute("user", userDto);
+	    			return "userInfo";
+	    		}
+	    	}else {
+	    		return "redirect:'/login?error'";
+	    	}
+		} catch (Exception e) {
+		   e.printStackTrace();
+		   return "error";
+		}
+	}
+	
+	
 	@GetMapping("/users")
 	public String listRegisteredUsers(Model model,@RequestParam(value="status", defaultValue="paid", required = false) String status) {
 		List<UserDto> users = new ArrayList<UserDto>();
@@ -169,27 +202,26 @@ public class AuthController {
 		model.addAttribute("users", users);
 		return "users";
 	}
-
+	
 	@RequestMapping(value = {"/paymentSuccess/{amount}/{mail}"}, method = RequestMethod.POST)
 	public String paymentSuccess(Model model,
 			Authentication authentication,
-			/*
-			 * @RequestParam("razorpay_payment_id") String razorpayPaymentId,
-			 * 
-			 * @RequestParam("razorpay_order_id") String razorpayOrderId,
-			 * 
-			 * @RequestParam("razorpay_signature") String razorpaySignature,
-			 */
-			@PathVariable Float amount,
-			@PathVariable String mail,
-			RedirectAttributes redirectAttributes){
+			 @RequestParam("razorpay_payment_id") String razorpayPaymentId,
+			 @RequestParam("razorpay_order_id") String razorpayOrderId,
+			 @RequestParam("razorpay_signature") String razorpaySignature,
+			 @PathVariable Float amount,
+			 @PathVariable String mail,
+			 RedirectAttributes redirectAttributes){
 
 		User user = userService.findByEmail(false, mail);
-		int updateId = userService.activateUserStatus(true, user.getId());
+		user.setStatus(true);
+		user.setPaymentId(razorpayPaymentId);
+		user.setOrderId(razorpayOrderId);
+		User updateUser = userService.updateUserData(user);
 		model.addAttribute("amount", amount);
 		model.addAttribute("name", user.getName());
 		model.addAttribute("appointmentId", user.getAppointmentId());
-		if(updateId>0) {
+		if(updateUser.getId()>0) {
 			try {
 				userService.sendMailAfterPayment(user);
 				model.addAttribute("mailStatus", true);
@@ -201,6 +233,34 @@ public class AuthController {
 			}
 		}
 		return "paid";
+	}
+	
+	@GetMapping("/user/profile/{userId}")
+	public String listRegisteredUsers(Model model,@PathVariable long userId) {
+		try {
+			User userData = userService.findById(userId);
+			UserDto user = userService.convertEntityToDto(userData);
+			model.addAttribute("user", user);
+ 		}catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return "userInfo";
+	}
+	
+	@GetMapping("/usersByStatus")
+	public String usersByStatus(Model model,@RequestParam(value="status", required = true) String status) {
+		List<UserDto> users = new ArrayList<UserDto>();
+		try {
+			if(status.equalsIgnoreCase("paid")) {
+				users = userService.findAllUsers(true);
+			}else {
+				users = userService.findAllUsers(false);
+			}
+ 		}catch (Exception e) {
+			e.printStackTrace();
+		}		
+		model.addAttribute("users", users);
+		return "usersByStatus";
 	}
 
 }

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COUNCIL MEETING</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/datatables.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/bootstrap-toggle.min.css}" rel="stylesheet" />
+  
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    
+    <div class="container">
+        <!-- Brand/logo -->
+        <a class="navbar-brand" th:href="@{/gcmeeting/index}">COUNCIL MEETING</a>
+
+        <!-- Toggler/collapsibe Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navigation Links -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/gcmeeting/register}">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/gcmeeting/logout}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<br>
+<div class="row">
+	<div class="col-md-1"></div>
+	<div class="col-md-5"><h3>User Details</h3></div>
+	<div class="col-md-2"></div>
+ </div>
+ <div class="container">
+    <p>Name: <span th:text="${user.name}">User Name</span></p>
+    <p>Email: <span th:text="${user.email}">user@example.com</span></p>
+    <p>Mobile: <span th:text="${user.mobile}">User Name</span></p>
+    <p>Address: <span th:text="${user.address}">user@example.com</span></p>
+    <p>Zone: <span th:text="${user.zoneName}">User Name</span></p>
+    <p>Division: <span th:text="${user.divisionName}">user@example.com</span></p>
+    <p>Branch: <span th:text="${user.branch}">User Name</span></p>
+    <p>Agency Code: <span th:text="${user.agencyCode}">user@example.com</span></p>
+    <p>Appointment Id: <span th:text="${user.appointmentId}">User Name</span></p>
+    <p>Club Type: <span th:text="${user.clubTypeName}">user@example.com</span></p>
+    <p>Order Id: <span th:text="${user.orderId}">User Name</span></p>
+    <p>Payment Id: <span th:text="${user.paymentId}">user@example.com</span></p>
+    
+   <!-- <div class="image-class">
+		<img th:src="@{${}}" alt="${image.name}" height="60px" /></td>
+	</div>-->
+ </div>
+ 
+ 
+    <!-- The hidden popup -->
+    <div class="modal fade" id="userDetailsModal" tabindex="-1" role="dialog" aria-labelledby="userDetailsModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">User Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Name:</strong> <span id="userName"></span></p>
+                    <p><strong>MailId:</strong> <span id="userMail"></span></p>
+                    <p><strong>Address:</strong> <span id="userName"></span></p>
+                    <p><strong>Branch:</strong> <span id="userMail"></span></p>
+                    <p><strong>Division:</strong> <span id="userName"></span></p>
+                    <p><strong>Mobile:</strong> <span id="userMail"></span></p>
+                    <p><strong>Membership Patron Number:</strong> <span id="userName"></span></p>
+                    <p><strong>Agency Code:</strong> <span id="userName"></span></p>
+                    <p><strong>Club Type:</strong> <span id="userMail"></span></p>
+                    <p><strong>Aadhar Number:</strong> <span id="userName"></span></p>
+                    <p><strong>Order Id:</strong> <span id="userMail"></span></p>
+                    <p><strong>Payment Id:</strong> <span id="userMail"></span></p>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+  <script type="text/javascript" th:src="@{/js/jquery-3.7.0.min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/datatables.min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/bootstrap-toggle.min.js}"></script>
+</body>
+
+<script>
+function usersByStatus(button){
+	alert(button.checked);
+}
+
+
+$(document).ready(function() {
+	$("#usersTable").DataTable({
+			'aoColumnDefs': [{
+     				'bSortable': false,
+     				'aTargets': [-1] /* 1st one, start by the right */
+ 				}]
+	});
+});
+</script>
+<script>
+$(document).ready(function() {	
+	$('.userInfoClass').on('click', function () {
+      var userId = $(this).attr("userId");
+      alert(userId);
+      $('#userDetailsModal').modal('show');
+    });
+});
+</script>
+
+</html>

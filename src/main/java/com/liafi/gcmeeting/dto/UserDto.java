@@ -71,6 +71,10 @@ public class UserDto
     private boolean acceptTerms;
     
     private List<Relative> relatives;
+    
+	private String paymentId;
+
+	private String orderId;
   	
 	public Long getId() {
 		return id;
@@ -270,6 +274,22 @@ public class UserDto
 
 	public void setRelatives(List<Relative> relatives) {
 		this.relatives = relatives;
+	}
+
+	public String getPaymentId() {
+		return paymentId;
+	}
+
+	public void setPaymentId(String paymentId) {
+		this.paymentId = paymentId;
+	}
+
+	public String getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
 	}
 	
 }

@@ -1,0 +1,62 @@
+/* Your custom.css */
+.image-overlay {
+    position: relative;
+}
+
+.image-overlay .img-fluid {
+    width: 100%;
+    height: auto;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(225 213 213 / 60%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay-content {
+    text-align: center;
+    color: rgb(0, 0, 0);
+    padding: 24px;
+}
+
+.overlay-content h1 {
+    font-size: 36px;
+}
+
+.overlay-content p {
+    font-size: 18px;
+}
+
+.content-box {
+    text-align: center;
+    padding: 10px;
+    background-color: #e4eaf0; /* Very light background color with low opacity */
+    border-radius: 10px;
+}
+
+.content-box h1 {
+    font-size: 36px;
+}
+
+.content-box p {
+    font-size: 18px;
+}
+
+
+/* Responsive styles */
+@media (max-width: 767px) {
+    .overlay-content h1 {
+        font-size: 24px;
+    }
+
+    .overlay-content p {
+        font-size: 16px;
+    }
+}

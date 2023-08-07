@@ -1,31 +1,60 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COUNCIL MEETING</title>
-     <script type="text/javascript" th:src="@{/js/jquery-3.7.0.min.js}"></script>
-     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/image.css}" rel="stylesheet" />
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">COUNCIL MEETING</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    
+    <div class="container">
+        <!-- Brand/logo -->
+        <a class="navbar-brand" th:href="@{/gcmeeting/index}">COUNCIL MEETING</a>
+
+        <!-- Toggler/collapsibe Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/gcmeeting/register}">Register</a>
+
+        <!-- Navigation Links -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/gcmeeting/register}">Register</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/gcmeeting/login}">Login</a>
+                    <a class="nav-link" th:href="@{/gcmeeting/login}">Login</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-<div class="container">
+
+<div class="container-fluid p-0">
+    <div class="image-overlay">
+        <img th:src="@{liafi.jpg}" alt="Dashboard Background Image" style="padding: 2%;" class="img-fluid">
+        <div class="overlay">
+            <div class="overlay-content">
+              <div class="content-box">
+                <div class="row">
+					<h1 class="text-center" style="font-size: x-large;"> WELCOME TO LIAFI </h1>
+				</div>
+                <div class="row">
+					<h1 class="text-center" style="font-size: initial;">
+					 <strong> APPLICATION FOR REGISTRATION AS DELEGATE FOR GENERAL COUNCIL MEETING OF LIAFI AT VIJAYAWADA HELD ON 17th,18th,19th SEP 2023
+					 </strong></h1>
+				</div>
+		     </div>
+		   </div>
+        </div>
+    </div>
+</div>
+<!--<div class="container">
 	<br><br><br>
     <div class="row">
         <h1 class="text-center" style="font-size: x-large;"> WELCOME TO <span style="color: #008000;">LIAFI</span> </h1>
@@ -34,7 +63,11 @@
      <div class="row">
         <h1 class="text-center" style="font-size: x-large;"> APPLICATION FOR REGISTRATION AS DELEGATE FOR GENERAL COUNCIL MEETING OF LIAFI AT VIJAYAWADA HELD ON 17th,18th,19th SEP 2023</h1>
     </div>
-   
-</div>
+</div>-->
+<!-- Rest of your page content goes here -->
+
+     <script type="text/javascript" th:src="@{/js/jquery-3.7.0.min.js}"></script>
+     <script type="text/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
 </body>
 </html>

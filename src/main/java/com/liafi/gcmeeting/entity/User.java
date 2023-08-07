@@ -97,6 +97,13 @@ public class User
 
 	@Transient
 	private String imageData;
+	
+	@Column(name = "payment_id", nullable = false)
+	private String paymentId;
+
+	@Column(name = "order_id", nullable = false)
+	private String orderId;
+
 
 	public Long getId() {
 		return id;
@@ -278,6 +285,22 @@ public class User
 		this.relatives = relatives;
 	}
 
+	public String getPaymentId() {
+		return paymentId;
+	}
+
+	public void setPaymentId(String paymentId) {
+		this.paymentId = paymentId;
+	}
+
+	public String getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
+	
 	/*
 	 * public void addRelative(Relative relative) { relatives.add(relative);
 	 * relative.setUser(this); }

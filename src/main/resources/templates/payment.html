@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COUNCIL MEETING</title>
     <script type="text/javascript" th:src="@{/js/jquery-3.7.0.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/checkout-razorpay.js}"></script>
@@ -10,7 +11,31 @@
 
 <br>
 <br>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    
+    <div class="container">
+        <!-- Brand/logo -->
+        <a class="navbar-brand" th:href="@{/gcmeeting/index}">COUNCIL MEETING</a>
 
+        <!-- Toggler/collapsibe Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navigation Links -->
+       <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/gcmeeting/register}">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/gcmeeting/login}">Login</a>
+                </li>
+            </ul>
+        </div>
+    </div>	
+</nav>
 <div class="container">
 	
 	<input type="hidden"  id="keyId" th:value="${keyId}" />
@@ -78,14 +103,14 @@
 
 <script>
 	
-function openCheckout(amount, razorpayOrderId) {
+function openCheckout(amount,mail, razorpayOrderId) {
   
     var options = {
         "key": "[[${keyId}]]", // Enter the Key ID generated from the Dashboard
         "amount": totalAmount.toString(), // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         "currency": "[[${currencyType}]]",
         "name": "[[${companyName}]]",
-        "image": "/lic.jpg",
+        "image": "/liafi/payment_logo.jpg",
         "order_id": razorpayOrderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         "callback_url": "/liafi/gcmeeting/paymentSuccess/"+amount+"/"+"[[${mail}]]/",
         "notes": {

@@ -24,7 +24,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT user FROM User user where user.status = :status and email = :email")
 	User findByEmail(@Param("status") boolean status, @Param("email") String mailId);
 
-    @Modifying
-    @Query("UPDATE User user set user.status = ?1 where user.id = ?2")
-	int activateUserStatus(boolean status, long userId);
+	/*
+	 * @Modifying
+	 * 
+	 * @Query("UPDATE User user set user.status = ?1 where user.id = ?2") int
+	 * updateUser(user);
+	 */
 }
