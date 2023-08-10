@@ -10,6 +10,18 @@
     <link th:href="@{/css/bootstrap-toggle.min.css}" rel="stylesheet" />
   
 </head>
+<style>
+	.relativeTable, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+.relativeTd{
+	font-weight: 400 !important;
+}
+.relativeHeader {
+   font-weight: bolder !important;
+}
+</style>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
@@ -41,60 +53,63 @@
 <div class="row">
 	<div class="col-md-1"></div>
 	<div class="col-md-5"><h3>User Details</h3></div>
-	<div class="col-md-2"></div>
+	<div class="col-md-4"></div>
+	<div class="col-md-2" style="float:right">
+		<button onclick="history.go(-1)" class="btn btn-dark">Back</button>
+	</div>
  </div>
- <div class="container">
-    <p>Name: <span th:text="${user.name}">User Name</span></p>
-    <p>Email: <span th:text="${user.email}">user@example.com</span></p>
-    <p>Mobile: <span th:text="${user.mobile}">User Name</span></p>
-    <p>Address: <span th:text="${user.address}">user@example.com</span></p>
-    <p>Zone: <span th:text="${user.zoneName}">User Name</span></p>
-    <p>Division: <span th:text="${user.divisionName}">user@example.com</span></p>
-    <p>Branch: <span th:text="${user.branch}">User Name</span></p>
-    <p>Agency Code: <span th:text="${user.agencyCode}">user@example.com</span></p>
-    <p>Appointment Id: <span th:text="${user.appointmentId}">User Name</span></p>
-    <p>Club Type: <span th:text="${user.clubTypeName}">user@example.com</span></p>
-    <p>Order Id: <span th:text="${user.orderId}">User Name</span></p>
-    <p>Payment Id: <span th:text="${user.paymentId}">user@example.com</span></p>
-    
-   <!-- <div class="image-class">
-		<img th:src="@{${}}" alt="${image.name}" height="60px" /></td>
-	</div>-->
+ <div class="d-flex justify-content-center">
+  <ul class="list-group rounded-0" style="width:250px">
+    <li class="list-group-item list-group-item-secondary border-right-0">Name</li>
+    <li class="list-group-item list-group-item-secondary border-right-0">Email</li>
+    <li class="list-group-item list-group-item-secondary border-right-0">Mobile</li>
+    <li class="list-group-item list-group-item-secondary border-right-0">Address</li>
+    <li class="list-group-item list-group-item-secondary border-right-0">Zone</li>
+    <li class="list-group-item list-group-item-secondary border-right-0">Division</li>
+    <li class="list-group-item list-group-item-secondary border-right-0">Branch</li>
+    <li class="list-group-item list-group-item-secondary border-right-0">Agency Code</li>
+    <li class="list-group-item list-group-item-secondary border-right-0">Club Type</li>
+    <li class="list-group-item list-group-item-secondary border-right-0">Appointment Id</li>
+    <li class="list-group-item list-group-item-secondary border-right-0">Order Id</li>
+    <li class="list-group-item list-group-item-secondary border-right-0">Payment Id</li>
+    <li class="list-group-item list-group-item-secondary border-right-0">Transaction Status</li>
+  </ul>
+  <ul class="list-group rounded-0" style="width:300px">
+    <li th:text="${user.name}" class="list-group-item border-left-0"></li>
+ 	<li th:text="${user.email}" class="list-group-item border-left-0"></li>
+	<li th:text="${user.mobile}" class="list-group-item border-left-0"></li>
+	<li th:text="${user.address}" class="list-group-item border-left-0"></li>
+	<li th:text="${user.zoneName}" class="list-group-item border-left-0"></li>
+	<li th:text="${user.divisionName}" class="list-group-item border-left-0"></l>
+	<li th:text="${user.branch}" class="list-group-item border-left-0"></li>
+	<li th:text="${user.agencyCode}" class="list-group-item border-left-0"></li>
+	<li th:text="${user.clubTypeName}" class="list-group-item border-left-0"></li>
+	<li th:text="${user.appointmentId}" class="list-group-item border-left-0"></li>
+	<li th:text="${user.orderId}" class="list-group-item border-left-0"></li>
+	<li th:text="${user.paymentId}" class="list-group-item border-left-0"></li>
+	<li class="list-group-item border-left-0" th:text="${user.status?'Success' : 'Failed'}" ></li>
+</ul>
+</div>
+<if th:if="${not #lists.isEmpty(user.relatives)}">
+<br>
+<div class="row">
+  <div class="col-md-3">
+  </div>
+  <div class="col-md-6">
+  <table class=""relativeTable"" style="width:100%">
+   <tr>
+    <th>Name:</th>
+    <td class="relativeHeader">Relationship</td>
+   </tr>
+   <tr th:each="relative: ${user.relatives}">
+    <th class="relativeTd"  th:text="${relative.name}">Telephone:</th>
+    <td th:text="${relative.relationship}">555 77 854</td>
+   </tr>
+  </table>
  </div>
+</div>
  
- 
-    <!-- The hidden popup -->
-    <div class="modal fade" id="userDetailsModal" tabindex="-1" role="dialog" aria-labelledby="userDetailsModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">User Details</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p><strong>Name:</strong> <span id="userName"></span></p>
-                    <p><strong>MailId:</strong> <span id="userMail"></span></p>
-                    <p><strong>Address:</strong> <span id="userName"></span></p>
-                    <p><strong>Branch:</strong> <span id="userMail"></span></p>
-                    <p><strong>Division:</strong> <span id="userName"></span></p>
-                    <p><strong>Mobile:</strong> <span id="userMail"></span></p>
-                    <p><strong>Membership Patron Number:</strong> <span id="userName"></span></p>
-                    <p><strong>Agency Code:</strong> <span id="userName"></span></p>
-                    <p><strong>Club Type:</strong> <span id="userMail"></span></p>
-                    <p><strong>Aadhar Number:</strong> <span id="userName"></span></p>
-                    <p><strong>Order Id:</strong> <span id="userMail"></span></p>
-                    <p><strong>Payment Id:</strong> <span id="userMail"></span></p>
-                    
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+</if>
  
   <script type="text/javascript" th:src="@{/js/jquery-3.7.0.min.js}"></script>
   <script type="text/javascript" th:src="@{/js/datatables.min.js}"></script>

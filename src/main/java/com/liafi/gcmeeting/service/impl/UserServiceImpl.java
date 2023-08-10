@@ -17,6 +17,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
@@ -120,9 +121,11 @@ public class UserServiceImpl implements UserService {
 			User savedUser = userRepository.save(user);
 			List<Relative> relatives = new ArrayList<>();
 	        for (Relative relative : userDto.getRelatives()) {
-	            relative.setUser(savedUser);
-	            relativesRepository.save(relative);
-	            relatives.add(relative);
+	           if(!StringUtils.isEmpty(relative.getName()) && !StringUtils.isEmpty(relative.getRelationship())){
+	        	   relative.setUser(savedUser);
+		           relativesRepository.save(relative);
+		           relatives.add(relative);
+	           }
 	        }
 
 	       // user.setRelatives(relatives);

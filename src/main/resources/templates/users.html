@@ -8,7 +8,9 @@
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
     <link th:href="@{/css/datatables.min.css}" rel="stylesheet" />
     <link th:href="@{/css/bootstrap-toggle.min.css}" rel="stylesheet" />
-  
+    <script type="text/javascript" th:src="@{/js/jquery-3.7.0.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/datatables.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap-toggle.min.js}"></script>
 </head>
 <style>
 .table-bordered {
@@ -75,6 +77,7 @@
 </div>
 <!--<div class="container">-->
   <div class="row">
+	<input type="hidden"  id="admin" name="admin" th:value="${admin}" />
    <!--<div class="col-lg-10 mt-5 mb-5">-->
     <table id="usersTable" class="table table-bordered table-responsive" style="width: 100%">
     <thead class="thead-dark">
@@ -88,6 +91,7 @@
         <th>Payment Id</th>
         <th>Transaction Status</th>
         <th>View</th>
+        <th>Change Payment Status</th>
      </tr>
     </thead>
     <tbody>
@@ -99,18 +103,16 @@
         <td th:text="${user.agencyCode}"></td>
         <td th:text="${user.appointmentId}"></td>
         <td th:text="${user.paymentId}"></td>
-        <td th:text="${user.status?'Success' : 'Failed'}" ></td>
+        <td>
+			<span th:class="label" th:classappend="${user.status}? label-success : label-danger" th:text="${user.status?'Success' : 'Failed'}" ></span></span>
+		</td>
         <td><a class="" th:href="@{/gcmeeting/user/profile/__${user.id}__}">Info</a></td>
+        <td><a class="" th:href="@{/gcmeeting/user/changePaymentStatus/__${user.id}__/__${admin}__}">Change</a></td>
       </tr>  
     </tbody>
    </table>
  </div>
  <!--</div>-->
- 
- 
-  <script type="text/javascript" th:src="@{/js/jquery-3.7.0.min.js}"></script>
-  <script type="text/javascript" th:src="@{/js/datatables.min.js}"></script>
-  <script type="text/javascript" th:src="@{/js/bootstrap-toggle.min.js}"></script>
 </body>
 
 <script>

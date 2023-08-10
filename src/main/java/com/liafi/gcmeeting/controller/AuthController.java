@@ -1,11 +1,13 @@
 package com.liafi.gcmeeting.controller;
 
+import java.net.http.HttpRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.json.JSONObject;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.liafi.gcmeeting.dto.UserDto;
 import com.liafi.gcmeeting.entity.ClubTypeList;
@@ -78,6 +81,11 @@ public class AuthController {
 	@GetMapping("/logout")
 	public String logoutForm() {
 		return "login";
+	}
+	
+	@GetMapping("/contact")
+	public String contact() {
+		return "contactUs";
 	}
 
 	@GetMapping("/register")
@@ -159,18 +167,18 @@ public class AuthController {
 		return map;
 	}
 
-	@SuppressWarnings("unlikely-arg-type")
-	@RequestMapping(value = { "/usersList" }, method = RequestMethod.POST)
-	public String payment(Model model,@RequestParam("username") String mailId,@RequestParam("password") String password) {
+	@RequestMapping(value = { "/usersList" }, method = RequestMethod.GET)
+	public String usersList(Model model,@RequestParam("username") String mailId) {
 		List<UserDto> users = new ArrayList<UserDto>();
 		UserDto userDto = new UserDto();
 	    try {
-	    	if(userService.checkCred(mailId,password)) {
-	    		User user = userService.findByEmail(true, mailId);
+	    	User user = userService.findByEmail(true, mailId);
+	    	if(user.getId()>0) {
 	    		List<Role> roleList = user.getRoles();
 	    		if(roleList.get(0).getName().equalsIgnoreCase("ROLE_ADMIN")) {
 	    			users = userService.findAll();
 	    			model.addAttribute("users", users);
+	    			model.addAttribute("admin", mailId);
 	    			return "users";
 	    		}else {
 	    			userDto = userService.convertEntityToDto(user);
@@ -178,7 +186,7 @@ public class AuthController {
 	    			return "userInfo";
 	    		}
 	    	}else {
-	    		return "redirect:'/login?error'";
+	    		return "redirect:'/gcmeeting/login?error'";
 	    	}
 		} catch (Exception e) {
 		   e.printStackTrace();
@@ -245,6 +253,36 @@ public class AuthController {
 			e.printStackTrace();
 		}		
 		return "userInfo";
+	}
+	
+	@GetMapping("/user/changePaymentStatus/{userId}/{admin}")
+	public String changePaymentStatus(Model model,@PathVariable long userId,@PathVariable String admin,HttpServletRequest request) {
+		try {
+			User userData = userService.findById(userId);
+			userData.setStatus(true);
+			userData.setPaymentId("Done");
+			userData.setOrderId("Done");
+			User updateUser = userService.updateUserData(userData);
+			if(updateUser.getId()>0) {
+				try {
+					userService.sendMailAfterPayment(updateUser);
+					model.addAttribute("mailStatus", true);
+					model.addAttribute("mailStatusMsg", "Appointment Id Sent to Your Register Mail, Thank You!!");
+				} catch (MessagingException e) {
+					e.printStackTrace();
+					model.addAttribute("mailStatus", false);
+					model.addAttribute("mailStatusErrMsg", e.getMessage());
+				}
+			}
+ 		}catch (Exception e) {
+			e.printStackTrace();
+		}		
+		String baseUrl = ServletUriComponentsBuilder.fromRequestUri(request)
+		            .replacePath(null)
+		            .build()
+		            .toUriString();
+		baseUrl = baseUrl + "/liafi/gcmeeting/usersList?username="+admin;
+		return "redirect:"+baseUrl;
 	}
 	
 	@GetMapping("/usersByStatus")
