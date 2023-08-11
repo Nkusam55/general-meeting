@@ -16,28 +16,25 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `zone_list`
+-- Table structure for table `hibernate_sequence`
 --
 
-DROP TABLE IF EXISTS `zone_list`;
+DROP TABLE IF EXISTS `hibernate_sequence`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `zone_list` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_dg0cdc2xw6qwrjs491xoklj6a` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `hibernate_sequence` (
+  `next_val` bigint DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `zone_list`
+-- Dumping data for table `hibernate_sequence`
 --
 
-LOCK TABLES `zone_list` WRITE;
-/*!40000 ALTER TABLE `zone_list` DISABLE KEYS */;
-INSERT INTO `zone_list` VALUES (1,'CENTRAL'),(2,'EAST CENTRAL'),(3,'EASTERN'),(6,'NORTH CENTRAL'),(7,'NORTHERN'),(4,'SOUTH CENTRAL'),(5,'SOUTHERN'),(8,'WESTERN');
-/*!40000 ALTER TABLE `zone_list` ENABLE KEYS */;
+LOCK TABLES `hibernate_sequence` WRITE;
+/*!40000 ALTER TABLE `hibernate_sequence` DISABLE KEYS */;
+INSERT INTO `hibernate_sequence` VALUES (1);
+/*!40000 ALTER TABLE `hibernate_sequence` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +46,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-05  8:47:29
+-- Dump completed on 2023-08-11 14:58:52

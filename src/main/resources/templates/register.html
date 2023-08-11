@@ -5,11 +5,15 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>COUNCIL MEETING</title>
       <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+      <script type="text/javascript" th:src="@{/js/jquery-3.7.0.min.js}"></script>
+      <script type="text/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+      <script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+      <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+
    </head>
    <script>
 	   
- 
-      function addRelative() {
+        function addRelative() {
              
          let relativeIndex = parseInt($('#relativesDiv div.relativeDivClass:last').attr("relativeIndex"));
          relativeIndex = relativeIndex+1;
@@ -126,9 +130,9 @@
                         placeholder="Enter mobile number"
                         th:field="*{mobile}"
                         th:required="required"
-                        type="text"
+                        type="number"
                         />
-                     <p th:errors="*{mobile}" class="text-danger"
+                     <p th:errors="*{mobile}"  id="mobileNumberError" class="text-danger"
                         th:if="${#fields.hasErrors('mobile')}">
                      </p>
                   </div>
@@ -329,11 +333,4 @@
          </div>
       </div>
       </body>
-     <script type="text/javascript" th:src="@{/js/jquery-3.7.0.min.js}"></script>
-     <script type="text/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
-     <script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
-     <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
-
-      
-   </body>
 </html>
