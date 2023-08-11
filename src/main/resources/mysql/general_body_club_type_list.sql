@@ -16,30 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `users_roles`
+-- Table structure for table `club_type_list`
 --
 
-DROP TABLE IF EXISTS `users_roles`;
+DROP TABLE IF EXISTS `club_type_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `users_roles` (
-  `user_id` bigint NOT NULL,
-  `role_id` bigint NOT NULL,
-  KEY `FKj6m8fwv7oqv74fcehir1a9ffy` (`role_id`),
-  KEY `FK2o0jvgh89lemvvo17cbqvdxaa` (`user_id`),
-  CONSTRAINT `FK2o0jvgh89lemvvo17cbqvdxaa` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `FKj6m8fwv7oqv74fcehir1a9ffy` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `club_type_list` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `users_roles`
+-- Dumping data for table `club_type_list`
 --
 
-LOCK TABLES `users_roles` WRITE;
-/*!40000 ALTER TABLE `users_roles` DISABLE KEYS */;
-INSERT INTO `users_roles` VALUES (2,1),(3,2),(4,2),(5,2);
-/*!40000 ALTER TABLE `users_roles` ENABLE KEYS */;
+LOCK TABLES `club_type_list` WRITE;
+/*!40000 ALTER TABLE `club_type_list` DISABLE KEYS */;
+INSERT INTO `club_type_list` VALUES (1,'CM'),(2,'ZM'),(3,'DM'),(4,'BM'),(5,'MDRT'),(6,'COT'),(7,'DOT'),(8,'NONE');
+/*!40000 ALTER TABLE `club_type_list` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-05  8:47:32
+-- Dump completed on 2023-08-11 14:58:54

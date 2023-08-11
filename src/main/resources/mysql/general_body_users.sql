@@ -16,31 +16,46 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `relatives_list`
+-- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `relatives_list`;
+DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `relatives_list` (
+CREATE TABLE `users` (
   `id` bigint NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `relationship` varchar(255) NOT NULL,
-  `user_id` bigint DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `aadhar_number` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `branch_name` varchar(255) NOT NULL,
+  `division_name` varchar(255) NOT NULL,
+  `membership_number` varchar(255) NOT NULL,
+  `membership_type` varchar(255) NOT NULL,
+  `mobile` varchar(255) NOT NULL,
+  `zone_id` bigint NOT NULL,
+  `appointment_id` varchar(255) NOT NULL,
+  `membership_pattern` bit(1) NOT NULL,
+  `status` bit(1) NOT NULL,
+  `agency_code` varchar(255) NOT NULL,
+  `photo` longblob,
+  `club_type_id` bigint NOT NULL,
+  `accept_terms` bit(1) NOT NULL,
+  `order_id` varchar(255) NOT NULL,
+  `payment_id` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FKl88lqjq7yx3ivec49al5lseww` (`user_id`),
-  CONSTRAINT `FKl88lqjq7yx3ivec49al5lseww` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `UK_6dotkott2kjsp8vw4d0m25fb7` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `relatives_list`
+-- Dumping data for table `users`
 --
 
-LOCK TABLES `relatives_list` WRITE;
-/*!40000 ALTER TABLE `relatives_list` DISABLE KEYS */;
-INSERT INTO `relatives_list` VALUES (1,'parent','Parent',2),(2,'wife','Spouse',2),(3,'name','Parent',3),(4,'cds','Sibling',3),(5,'vfd','Parent',4),(6,'vdfs','Sibling',4),(7,'vfd','Parent',5),(8,'sunny','Friend',5);
-/*!40000 ALTER TABLE `relatives_list` ENABLE KEYS */;
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +67,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-05  8:47:29
+-- Dump completed on 2023-08-11 14:58:55
