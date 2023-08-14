@@ -50,6 +50,10 @@
                <div class="alert alert-info">You've successfully registered
                    to our app!</div>
             </div>
+             <div th:if="${param.transaction}">
+               <div class="alert alert-success">Please Login and check your payment status!</div>
+               <div class="alert alert-info"> Your Appointment will confirm next 24 hours </div>
+            </div>
             <div class="card">
                 <div class="card-header">
                     <h3 class="text-center">Login Form</h3>

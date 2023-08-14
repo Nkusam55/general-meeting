@@ -8,9 +8,6 @@
     <script type="text/javascript" th:src="@{/js/checkout-razorpay.js}"></script>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
 </head>
-
-<br>
-<br>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     
     <div class="container">
@@ -38,14 +35,13 @@
 </nav>
 <div class="container">
 	
-	<input type="hidden"  id="keyId" th:value="${keyId}" />
+	<!--<input type="hidden"  id="keyId" th:value="${keyId}" />
 	<input type="hidden"  id="currencyType" th:value="${currencyType}" />
     <input type="hidden"  id="regFeeAmount" th:value="${regFeeAmount}" />
     <input type="hidden"  id="companyName" th:value="${companyName}" />
     <input type="hidden"  id="mailId" th:value="${mailId}" />
-
+-->
     <div class="row">
-		 <h1>General Council Meeting Registration</h1>
 		 <br>
 		 <p>To attend the meeting, please complete the payment.</p>
 
@@ -56,27 +52,40 @@
                     <div class="mt-auto mb-4">
                         <span  class="fw-bold fs-2" th:text="${regFeeAmount}" th:remove="tag">title</span>₹
                     </div>
-                    <span>Please Pay Amount through Phone pe or G-pay to below mobile number</span>
+                    <span>Please Pay Amount to below Bank Account and Submit Transaction Number </span>
                     <br>
-                    <span> Mobile Number : 9063063722</span><br>
-                    <span> UPI : 9063063722@hdfcbank </span><br>
-                    <span> Send Screen Shot or Share the receipt for Payment proof</span>
+                    <span>> Bank Name :  <strong>Union Bank of India </strong> </span><br>
+                    <span> Branch Name : <strong>Arundelpet Branch, Guntur </strong></span><br>
+                    <span> Account Number : <strong>520101014040979 </strong></span><br>
+                    <span> IFSC Code : <strong>UBIN0921378 </strong></span><br>
                     <br>
+                    <br>
+                     <form 
+                            method="post"
+                            th:action="@{/gcmeeting/trasactionSubmit}"
+                            class="form-horizontal"
+                            role="form">
+                        <div class="mb-3">
+                            <label for="transactionNumber" class="control-label">Transaction Number</label>
+                            <input type="text"
+                                   id="transactionNumber"
+                                   name="transactionNumber"
+                                   class="form-control"
+                                   placeholder="Enter Your Transaction Number" />
+                        </div>
+                        <input type="hidden"  id="userMailId"  name="userMailId" th:value="${mail}" />
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
                     <span><strong> Once the payment is verified, we will send the meeting appointment to your registered email.</strong></span>
-                    <ul class="list-unstyled">
-                        <li class="mb-3">
-                        </li>
-                    </ul>
-                    <!--<div class="d-grid gap-2">
-                        <button class="btn btn-primary" type="button" onclick="createOrderID()">Pay</button>
-                    </div>-->
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<script>
+<!--<script>
    
    
    function doGet(path, requestObject, isAsync) {
@@ -149,6 +158,6 @@ function openCheckout(amount,mail, razorpayOrderId) {
     rzp1.open();
     e.preventDefault();
 }
-</script>
+</script>-->
 </body>
 </html>

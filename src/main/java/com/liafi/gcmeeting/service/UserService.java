@@ -41,4 +41,6 @@ public interface UserService {
 
 	boolean checkCred(String mailId, String password);
 
+	String sendMailAfterPaymentToAdmin(User updateUser) throws MessagingException;
+
 }

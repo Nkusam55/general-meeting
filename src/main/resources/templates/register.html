@@ -297,6 +297,7 @@
                            placeholder="Enter aadhar number"
                            th:field="*{aadharNumber}"
                            type="text"
+                           th:required="required"
                            />
                         <!-- <p th:errors="*{aadharNumber}" class="text-danger"
                            th:if="${#fields.hasErrors('aadharNumber')}">
