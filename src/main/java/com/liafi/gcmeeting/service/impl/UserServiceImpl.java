@@ -259,5 +259,10 @@ public class UserServiceImpl implements UserService {
 	//	user.setPassword(passwordEncoder. .dec(user.getPassword()));
 		return true;
 	}
+
+	@Override
+	public String sendMailAfterPaymentToAdmin(User updateUser) throws MessagingException {
+		return mailService.sendMailToAdmin(updateUser);
+	}
 	
 }

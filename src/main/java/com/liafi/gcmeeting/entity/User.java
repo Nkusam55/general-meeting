@@ -67,7 +67,7 @@ public class User
 	@Column(name = "membership_number", nullable = false)
 	private String membershipNumber;
 
-	@Column(name = "aadhar_number")
+	@Column(name = "aadhar_number", nullable = false)
 	private String aadharNumber;
 
 	@Lob

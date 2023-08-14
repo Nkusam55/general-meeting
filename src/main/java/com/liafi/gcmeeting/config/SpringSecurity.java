@@ -82,6 +82,7 @@ public class SpringSecurity {
 						.loginProcessingUrl("/gcmeeting/login")
 						.usernameParameter("username")
 						.successHandler(loginSuccessHandler)
+						.failureUrl("/gcmeeting/login?error")
 						.permitAll().and()
 						.logout(
 								logout -> logout

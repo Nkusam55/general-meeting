@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIAFI General Council Meeting Payment Confirmation</title>
+    <!-- Add your CSS styles here or include an external CSS file -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            background-color: #007bff;
+            color: #ffffff;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .content {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .event-details {
+            margin-top: 30px;
+        }
+
+        .event-details h2 {
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+
+        .event-details ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 10px;
+        }
+
+        .event-details li {
+            margin-bottom: 10px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #888;
+            font-size: 14px;
+        }
+
+        .footer p {
+            margin-bottom: 10px;
+        }
+
+        .footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+		.container {
+		    display: flex; /* Use flexbox layout */
+		}
+
+		.event-info {
+		    flex: 2; /* Distribute available space equally between divs */
+		    border: 1px solid #ccc; /* Add borders for visual separation */
+		    padding: 10px; /* Add padding for spacing within divs */
+		}
+		
+		.image-info {
+		    flex: 1; /* Distribute available space equally between divs */
+		    border: 1px solid #ccc; /* Add borders for visual separation */
+		    padding: 10px; /* Add padding for spacing within divs */
+		}
+        
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>LIAFI General Council Meeting</h1>
+    </div>
+    <div class="content">
+        <p>Dear <span th:text="${user.name}" />,</p>
+        <p>Please Verify Trasaction For User Registration</p>
+        <p>Appointment Id : <b th:text="${user.appointmentId}"></b></p>
+        <div class="event-details">
+           <h2>User Details:</h2>
+          <div class="container">
+			 <div class="event-info">
+			    <ul>
+                <li><strong>Name:</strong> <span th:text="${user.name}"></span> </li>
+                <li><strong>Mail:</strong> <span th:text="${user.email}"></span> </li>
+                <li><strong>Mobile:</strong> <span th:text="${user.mobile}"></span> </li>
+                <li><strong>Trasaction Number :</strong> <span th:text="${user.paymentId}"></span> </li>
+            </ul> 
+		   </div>
+		  </div>
+        </div>
+        <div class="placeholder-footer">
+         <div class="footer">
+          <p>Thank you once again for your participation, and we eagerly anticipate meeting you at the event.</p>
+          <p>Best regards,<br>LIAFI General Council Meeting Organizing Committee</p>
+         </div>
+       </div>
+    </div>
+</body>
+</html>
