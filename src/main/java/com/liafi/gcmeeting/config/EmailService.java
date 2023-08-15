@@ -52,7 +52,7 @@ public class EmailService {
 		String process = templateEngine.process("emails/transactionVerification", context);
 		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
-		helper.setSubject("LIAFI General Council Meeting Payment Verification of "+user.getName());
+		helper.setSubject("LIAFI General Council Meeting Payment Verification for "+user.getName());
 		helper.setText(process, true);
 		helper.setTo(verificationAdminMail);
 		javaMailSender.send(mimeMessage);

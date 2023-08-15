@@ -103,6 +103,12 @@ public class User
 
 	@Column(name = "order_id", nullable = false)
 	private String orderId;
+	
+	@Column(name = "temp_payment_id", nullable = false)
+	private String tempPaymentId;
+
+	@Column(name = "temp_order_id", nullable = false)
+	private String tempOrderId;
 
 
 	public Long getId() {
@@ -300,6 +306,22 @@ public class User
 	public void setOrderId(String orderId) {
 		this.orderId = orderId;
 	}
+
+	public String getTempPaymentId() {
+		return tempPaymentId;
+	}
+
+	public void setTempPaymentId(String tempPaymentId) {
+		this.tempPaymentId = tempPaymentId;
+	}
+
+	public String getTempOrderId() {
+		return tempOrderId;
+	}
+
+	public void setTempOrderId(String tempOrderId) {
+		this.tempOrderId = tempOrderId;
+	}
 	
 	/*
 	 * public void addRelative(Relative relative) { relatives.add(relative);
@@ -308,5 +330,7 @@ public class User
 	 * public void removeRelative(Relative relative) { relatives.remove(relative);
 	 * relative.setUser(null); }
 	 */
+	
+	
 
 }
