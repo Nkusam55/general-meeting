@@ -91,6 +91,8 @@ public class UserServiceImpl implements UserService {
 		user.setStatus(false);
 		user.setOrderId("not_created");
 		user.setPaymentId("not_done");
+		user.setTempOrderId("not_created");
+		user.setTempPaymentId("not_done");
 		try {
 			user.setPhoto(userDto.getPhoto().getBytes());
 		} catch (IOException e) {
@@ -178,6 +180,8 @@ public class UserServiceImpl implements UserService {
 	    
 	    userDto.setOrderId(user.getOrderId());
 	    userDto.setPaymentId(user.getPaymentId());
+	    userDto.setTempOrderId(user.getTempOrderId());
+	    userDto.setTempPaymentId(user.getTempPaymentId());
 	    userDto.setAcceptTerms(user.isAcceptTerms());
 	    userDto.setStatus(user.isStatus());
 	    userDto.setMembershipType(user.getMembershipType());

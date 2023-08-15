@@ -92,8 +92,8 @@
         <h1>LIAFI General Council Meeting</h1>
     </div>
     <div class="content">
-        <p>Dear <span th:text="${user.name}" />,</p>
-        <p>Please Verify Trasaction For User Registration</p>
+        <p>Hello <span>Admin</span>,</p>
+        <p>Please Verify My Trasaction For GC Meeting Registration</p>
         <p>Appointment Id : <b th:text="${user.appointmentId}"></b></p>
         <div class="event-details">
            <h2>User Details:</h2>
@@ -110,8 +110,7 @@
         </div>
         <div class="placeholder-footer">
          <div class="footer">
-          <p>Thank you once again for your participation, and we eagerly anticipate meeting you at the event.</p>
-          <p>Best regards,<br>LIAFI General Council Meeting Organizing Committee</p>
+          <p>Best regards,<br></strong> <span th:text="${user.name}"></span></p>
          </div>
        </div>
     </div>

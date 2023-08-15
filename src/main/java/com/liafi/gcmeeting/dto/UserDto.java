@@ -75,6 +75,10 @@ public class UserDto
 	private String paymentId;
 
 	private String orderId;
+	
+	private String tempPaymentId;
+
+	private String tempOrderId;
   	
 	public Long getId() {
 		return id;
@@ -291,5 +295,23 @@ public class UserDto
 	public void setOrderId(String orderId) {
 		this.orderId = orderId;
 	}
+
+	public String getTempPaymentId() {
+		return tempPaymentId;
+	}
+
+	public void setTempPaymentId(String tempPaymentId) {
+		this.tempPaymentId = tempPaymentId;
+	}
+
+	public String getTempOrderId() {
+		return tempOrderId;
+	}
+
+	public void setTempOrderId(String tempOrderId) {
+		this.tempOrderId = tempOrderId;
+	}
+	
+	
 	
 }

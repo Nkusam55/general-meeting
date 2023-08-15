@@ -241,8 +241,8 @@ public class AuthController {
 		try {
 			User userData = userService.findById(userId);
 			userData.setStatus(true);
-			userData.setPaymentId("Done");
-			userData.setOrderId("Done");
+			userData.setTempPaymentId(userData.getPaymentId());
+			userData.setTempOrderId(userData.getOrderId());
 			User updateUser = userService.updateUserData(userData);
 			if(updateUser.getId()>0) {
 				try {

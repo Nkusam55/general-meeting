@@ -130,7 +130,8 @@
                         placeholder="Enter mobile number"
                         th:field="*{mobile}"
                         th:required="required"
-                        type="number"
+                        pattern="[0-9]{10}"
+                        type="text"
                         />
                      <p th:errors="*{mobile}"  id="mobileNumberError" class="text-danger"
                         th:if="${#fields.hasErrors('mobile')}">
@@ -297,6 +298,7 @@
                            placeholder="Enter aadhar number"
                            th:field="*{aadharNumber}"
                            type="text"
+                           pattern="[0-9]{12}"
                            th:required="required"
                            />
                         <!-- <p th:errors="*{aadharNumber}" class="text-danger"
@@ -306,7 +308,7 @@
                      <div class="form-group mb-3">
                         <label class="form-label">Photo</label>
                         <br>
-                        <input type="file" name="photo"  th:field="*{photo}" accept="image/*"  th:required="required" class="form-control-file">
+                        <input type="file" name="photo"  th:field="*{photo}" accept="image/*" class="form-control-file">
                         <p th:errors="*{photo}" class="text-danger"
                            th:if="${#fields.hasErrors('photo')}">
                         </p>
